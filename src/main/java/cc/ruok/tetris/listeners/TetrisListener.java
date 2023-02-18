@@ -62,7 +62,7 @@ public class TetrisListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         if (event.getPlayer() == game.getPlayer()) {
-            game.full();
+            game.fall();
         }
     }
 
@@ -78,6 +78,7 @@ public class TetrisListener implements Listener {
         double _x = (x >= 0)? x : -x;
         double _z = (z >= 0)? z : -z;
         if (x == 0 && z == 0) return;
+        player.sendTip("x:" + x + " z:" + z);
         event.getPlayer().teleport(position);
         if (_x > _z) {
             onLocationMove(event.getPlayer(), (x >= 0)?4:3);
@@ -89,7 +90,7 @@ public class TetrisListener implements Listener {
         } else {
             onLocationMove(event.getPlayer(), (z >= 0)?2:1);
             if (z >= 0) {
-                game.rotate();
+                game.fall();
             } else {
                 game.rotate();
             }

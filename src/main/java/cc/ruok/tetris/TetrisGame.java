@@ -11,6 +11,7 @@ import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.particle.DestroyBlockParticle;
 import cn.nukkit.math.Vector3;
+import cn.nukkit.potion.Effect;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -162,9 +163,9 @@ public class TetrisGame {
             }
             nowBlock.center.full();
         } else if (d == 1) {
-            //TODO 这里判断方块的左移是否会发生碰撞。
-            //TODO 同样的写法在下落和右移中正常运行，但左移会出现错误便改用collision()方法。
-            //TODO 其他方向移动虽然有collision()方法可以实现，但是目前运行正常所以就不改了。
+            // 这里判断方块的左移是否会发生碰撞。
+            // 同样的写法在下落和右移中正常运行，但左移会出现错误便改用collision()方法。
+            // 其他方向移动虽然有collision()方法可以实现，但是目前运行正常所以就不改了。
 //            for (Pos pos : nowBlock.pos) {
 //                Pos temp = new Pos(pos.x - 1, pos.y);
 //                Position position = getPosition(temp);
@@ -203,7 +204,7 @@ public class TetrisGame {
         return false;
     }
 
-    public void full() {
+    public void fall() {
         while (true) {
             if (move(0)) return;
         }
