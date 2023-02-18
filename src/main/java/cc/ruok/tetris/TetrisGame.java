@@ -80,6 +80,10 @@ public class TetrisGame {
 
     public static TetrisGame start(Player player) {
         if (stats) return null;
+        if (Tetris.tetris.config == null) {
+            player.sendMessage("俄罗斯方块小游戏尚未进行配置，请联系管理员。");
+            return null;
+        }
         stats = true;
         game = new TetrisGame();
         game.setNextBlock(new TetrisBlock());

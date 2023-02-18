@@ -1,8 +1,8 @@
 package cc.ruok.tetris.commands;
 
 import cc.ruok.tetris.TetrisGame;
+import cc.ruok.tetris.TetrisSetting;
 import cn.nukkit.Player;
-import cn.nukkit.block.Block;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 
@@ -19,7 +19,7 @@ public class TetrisCommand extends Command {
             if (args.length > 0) {
                 if (args[0].equals("set")) {
                     if (player.isOp()) {
-                        return false; //TODO 生成地图
+                        TetrisSetting.getInstance().setting(player);
                     } else {
                         return false;
                     }
