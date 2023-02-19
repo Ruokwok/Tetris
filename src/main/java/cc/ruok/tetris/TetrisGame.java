@@ -11,7 +11,6 @@ import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.particle.DestroyBlockParticle;
 import cn.nukkit.math.Vector3;
-import cn.nukkit.potion.Effect;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,6 +56,14 @@ public class TetrisGame {
         return origin.clone(); //TODO 应当克隆一份
     }
 
+    public static TetrisConfig getConfig() {
+        return Tetris.tetris.config;
+    }
+
+    public static boolean getPlane() {
+        return getConfig().direction >= 0 && getConfig().direction <= 1;
+    }
+
     /**
      * 将坐标转换为地图方块位置
      * @param x 横坐标
@@ -68,9 +75,20 @@ public class TetrisGame {
         if (y > 19 || y < -1) return null;
         Position position = new Position();
         position.setLevel(level);
-        position.setX(origin.x + x);
         position.setY(origin.y + y);
-        position.setZ(origin.z);
+        if (getConfig().direction == 0) {
+            position.setX(origin.x + x);
+            position.setZ(origin.z);
+        } else if (getConfig().direction == 1) {
+            position.setX(origin.x - x);
+            position.setZ(origin.z);
+        } else if (getConfig().direction == 2) {
+            position.setX(origin.x);
+            position.setZ(origin.z - x);
+        } else if (getConfig().direction == 3) {
+            position.setX(origin.x);
+            position.setZ(origin.z + x);
+        }
         return position;
     }
 

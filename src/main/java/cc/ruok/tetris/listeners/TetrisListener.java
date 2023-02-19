@@ -83,16 +83,28 @@ public class TetrisListener implements Listener {
         if (_x > _z) {
             onLocationMove(event.getPlayer(), (x >= 0)?4:3);
             if (x >= 0) {
-                game.move(2);
+                if (Tetris.tetris.config.direction == 0) game.move(2);
+                if (Tetris.tetris.config.direction == 1) game.move(1);
+                if (Tetris.tetris.config.direction == 2) game.fall();
+                if (Tetris.tetris.config.direction == 3) game.rotate();
             } else {
-                game.move(1);
+                if (Tetris.tetris.config.direction == 0) game.move(1);
+                if (Tetris.tetris.config.direction == 1) game.move(2);
+                if (Tetris.tetris.config.direction == 2) game.rotate();
+                if (Tetris.tetris.config.direction == 3) game.fall();
             }
         } else {
             onLocationMove(event.getPlayer(), (z >= 0)?2:1);
             if (z >= 0) {
-                game.fall();
+                if (Tetris.tetris.config.direction == 0) game.fall();
+                if (Tetris.tetris.config.direction == 1) game.rotate();
+                if (Tetris.tetris.config.direction == 2) game.move(1);
+                if (Tetris.tetris.config.direction == 3) game.move(2);
             } else {
-                game.rotate();
+                if (Tetris.tetris.config.direction == 0) game.rotate();
+                if (Tetris.tetris.config.direction == 1) game.fall();
+                if (Tetris.tetris.config.direction == 2) game.move(2);
+                if (Tetris.tetris.config.direction == 3) game.move(1);
             }
         }
     }

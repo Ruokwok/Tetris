@@ -34,6 +34,7 @@ public class TetrisSetting {
 
     public void setting(Player player) {
         this.player = player;
+        System.out.println(step);
         switch (step) {
             case 0: set1(); break;
             case 1: set2(); break;
