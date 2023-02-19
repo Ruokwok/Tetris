@@ -167,7 +167,13 @@ public class TetrisGame {
             for (Pos pos : nowBlock.pos) {
                 Pos temp = new Pos(pos.x, pos.y - 1);
                 Position position = getPosition(temp);
-                if (position != null && level.getBlock(position).getId() != 0 && !nowBlock.isMine(temp)) {
+                getLevel().setBlock(getPosition(0,0), Block.get(5));
+                if (position == null || temp.y == -1) {
+                    spawn();
+                    check();
+                    return true;
+                }
+                if (level.getBlock(position).getId() != 0 && !nowBlock.isMine(temp)) {
                     for (Pos p : nowBlock.pos) {
                         if (p.y >= 20) {
                             stop();
@@ -183,7 +189,7 @@ public class TetrisGame {
                 clear(pos);
                 pos.y -= 1;
             }
-            nowBlock.center.full();
+            nowBlock.center.fall();
         } else if (d == 1) {
             // 这里判断方块的左移是否会发生碰撞。
             // 同样的写法在下落和右移中正常运行，但左移会出现错误便改用collision()方法。
@@ -568,8 +574,6 @@ public class TetrisGame {
                 int id = getLevel().getBlock(position).getId();
                 if (id == 0) {
                     getLevel().setBlock(position, Block.get(blockId, nowBlock.getColor()));
-                } else {
-
                 }
             }
         }
@@ -615,7 +619,7 @@ public class TetrisGame {
             x++;
         }
 
-        public void full() {
+        public void fall() {
             y--;
         }
 
