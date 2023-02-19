@@ -67,6 +67,13 @@ public class TetrisListener implements Listener {
     }
 
     @EventHandler
+    public void onSprint(PlayerToggleSprintEvent event) {
+        if (event.getPlayer() == player) {
+            player.setSprinting(false);
+        }
+    }
+
+    @EventHandler
     public void onMove(PlayerMoveEvent event) {
         if (event.getPlayer() != player) return;
         if (press) return;
