@@ -13,9 +13,9 @@ public class TetrisConfig {
     public int originY = 0;
     public int originZ = 0;
     public String level = "world";
-    public int playX = 0;
-    public int playY = 0;
-    public int playZ = 0;
+    public double playX = 0D;
+    public double playY = 0D;
+    public double playZ = 0D;
     public int direction = 0;
 
     public void save(File file) {

@@ -68,9 +68,9 @@ public class TetrisSetting {
         player.sendMessage("设置完成! 详细配置请使用/tetris config修改");
         TetrisConfig config = new TetrisConfig();
         config.level = level.getName();
-        config.playX = (int) position.getX();
-        config.playZ = (int) position.getZ();
-        config.playY = (int) position.getY();
+        config.playX = position.getX();
+        config.playZ = position.getZ();
+        config.playY = position.getY();
         config.originX = (int) listener.p1.x;
         config.originZ = (int) listener.p1.z;
         config.originY = (int) listener.p1.y - 19;
