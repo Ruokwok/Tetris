@@ -38,7 +38,7 @@ public class TetrisGame {
     private int blockId = 35;
 
     private int[][] layout = new int[20][10];
-    private static Position origin;
+    protected static Position origin;
 
     public static boolean getStats() {
         return stats;
@@ -68,11 +68,12 @@ public class TetrisGame {
      * 将坐标转换为地图方块位置
      * @param x 横坐标
      * @param y 纵坐标
+     * @param beyond 在画布外的位置是否返回空
      * @return 地图中方块的位置
      */
-    public static Position getPosition(int x, int y) {
-        if (x > 10 || x < 0) return null;
-        if (y > 19 || y < -1) return null;
+    public static Position getPosition(int x, int y, boolean beyond) {
+        if (beyond && (x > 10 || x < 0)) return null;
+        if (beyond && (y > 19 || y < -1)) return null;
         Position position = new Position();
         position.setLevel(level);
         position.setY(origin.y + y);
@@ -90,6 +91,10 @@ public class TetrisGame {
             position.setZ(origin.z + x);
         }
         return position;
+    }
+
+    public static Position getPosition(int x, int y) {
+        return getPosition(x, y, true);
     }
 
     public static Position getPosition(Pos pos) {

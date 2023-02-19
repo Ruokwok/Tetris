@@ -3,10 +3,12 @@ package cc.ruok.tetris;
 import cc.ruok.tetris.listeners.SettingListener;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.block.Block;
 import cn.nukkit.event.HandlerList;
 import cn.nukkit.form.window.FormWindowModal;
 import cn.nukkit.form.window.FormWindowSimple;
 import cn.nukkit.level.Level;
+import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
 
 public class TetrisSetting {
@@ -34,7 +36,7 @@ public class TetrisSetting {
 
     public void setting(Player player) {
         this.player = player;
-        System.out.println(step);
+//        System.out.println(step);
         switch (step) {
             case 0: set1(); break;
             case 1: set2(); break;
@@ -91,6 +93,41 @@ public class TetrisSetting {
         HandlerList.unregisterAll(listener);
         config.save(Tetris.tetris.configFile);
         Tetris.tetris.config = config;
+        generateBorder(config, player);
+    }
+
+    /**
+     * 生成默认边框
+     * @param config 配置文件
+     * @param player 管理员
+     */
+    public static void generateBorder(TetrisConfig config, Player player) {
+        TetrisGame.origin = new Position(config.originX, config.originY, config.originZ);
+        Level level = Server.getInstance().getLevelByName(config.level);
+        int x = -1;
+        int y = -1;
+        boolean color = true;
+        for (int i = 0; i < 64; i++) {
+            Position pos = TetrisGame.getPosition(x, y, false);
+            if (i <= 20) {
+                y++;
+            } else if (i <= 31) {
+                x++;
+            } else if (i <= 52) {
+                y--;
+            } else {
+                x--;
+            }
+            color = !color;
+            if (level.getBlock(pos).getId() == 0) {
+                level.setBlock(pos, Block.get(236, color ? 4 : 15));
+            }
+        }
+        player.sendMessage("已为您生成默认边框，边框可自行修改建造。");
+    }
+
+    public static void config(Player player) {
+
     }
 
 }
