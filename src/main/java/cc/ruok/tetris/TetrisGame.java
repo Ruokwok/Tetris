@@ -167,7 +167,6 @@ public class TetrisGame {
             for (Pos pos : nowBlock.pos) {
                 Pos temp = new Pos(pos.x, pos.y - 1);
                 Position position = getPosition(temp);
-                getLevel().setBlock(getPosition(0,0), Block.get(5));
                 if (position == null || temp.y == -1) {
                     spawn();
                     check();
@@ -532,12 +531,6 @@ public class TetrisGame {
                     getLevel().setBlock(position, Block.get(0));
                 }
             }
-        }
-    }
-
-    public static void main(String[] args) {
-        for (int i = 0; i < 14; i++) {
-            System.out.println(Utils.getBlock());
         }
     }
 
