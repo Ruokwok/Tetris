@@ -30,7 +30,12 @@ public class TetrisConfig {
 
     public static TetrisConfig load() {
         try {
-            return new Gson().fromJson(Utils.readFile(Tetris.tetris.configFile), TetrisConfig.class);
+            TetrisConfig config = new Gson().fromJson(Utils.readFile(Tetris.tetris.configFile), TetrisConfig.class);
+            if (config.direction < 0 || config.direction > 3) {
+                Tetris.tetris.getLogger().error("读取配置文件出错，请检查direction项!");
+                return null;
+            }
+            return config;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
