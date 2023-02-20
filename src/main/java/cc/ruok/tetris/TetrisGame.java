@@ -322,7 +322,7 @@ public class TetrisGame {
                         case 0: temp[i] = nowBlock.center.clone();break;
                         case 1: temp[i] = new Pos(nowBlock.center.x, nowBlock.center.y + 1); break;
                         case 2: temp[i] = new Pos(nowBlock.center.x, nowBlock.center.y - 1); break;
-                        case 3: temp[i] = new Pos(nowBlock.center.x - 1, nowBlock.center.y + 1); break;
+                        case 3: temp[i] = new Pos(nowBlock.center.x + 1, nowBlock.center.y - 1); break;
                     }
                 }
             } else if (nowBlock.dire == 2) {
@@ -331,7 +331,7 @@ public class TetrisGame {
                         case 0: temp[i] = nowBlock.center.clone();break;
                         case 1: temp[i] = new Pos(nowBlock.center.x - 1, nowBlock.center.y); break;
                         case 2: temp[i] = new Pos(nowBlock.center.x + 1, nowBlock.center.y); break;
-                        case 3: temp[i] = new Pos(nowBlock.center.x - 1, nowBlock.center.y - 1); break;
+                        case 3: temp[i] = new Pos(nowBlock.center.x + 1, nowBlock.center.y - 1); break;
                     }
                 }
             } else if (nowBlock.dire == 3) {
@@ -340,7 +340,7 @@ public class TetrisGame {
                         case 0: temp[i] = nowBlock.center.clone();break;
                         case 1: temp[i] = new Pos(nowBlock.center.x, nowBlock.center.y + 1); break;
                         case 2: temp[i] = new Pos(nowBlock.center.x, nowBlock.center.y - 1); break;
-                        case 3: temp[i] = new Pos(nowBlock.center.x + 1, nowBlock.center.y - 1); break;
+                        case 3: temp[i] = new Pos(nowBlock.center.x - 1, nowBlock.center.y + 1); break;
                     }
                 }
             }
