@@ -3,6 +3,7 @@ package cc.ruok.tetris;
 import cc.ruok.tetris.listeners.TetrisListener;
 import cc.ruok.tetris.tasks.EndTask;
 import cc.ruok.tetris.tasks.GameTask;
+import cc.ruok.tetris.tasks.ReadyTask;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -12,13 +13,14 @@ import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.particle.DestroyBlockParticle;
 import cn.nukkit.math.Vector3;
+import cn.nukkit.scheduler.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class TetrisGame {
 
-    private static boolean stats = false;
+    private static int stats = 0;
     private static TetrisGame game;
 //    private static Level level = null;
     private static Level level;
@@ -41,7 +43,11 @@ public class TetrisGame {
     private int[][] layout = new int[20][10];
     protected static Position origin;
 
-    public static boolean getStats() {
+    /**
+     * 获取游戏状态
+     * @return 0=空闲 1=准备中 2=游戏中
+     */
+    public static int getStats() {
         return stats;
     }
 
@@ -103,12 +109,12 @@ public class TetrisGame {
     }
 
     public static TetrisGame start(Player player) {
-        if (stats) return null;
+        if (stats != 0) return null;
         if (Tetris.tetris.config == null) {
             player.sendMessage("俄罗斯方块小游戏尚未进行配置，请联系管理员。");
             return null;
         }
-        stats = true;
+        stats = 1;
         game = new TetrisGame();
         game.setNextBlock(new TetrisBlock());
         game.next();
@@ -119,12 +125,20 @@ public class TetrisGame {
         game.blockX = 3;
         game.blockY = 20;
         game.clearScreen();
-        game.spawn();
+//        game.spawn();
         game.gamemode = player.getGamemode();
-        server.getScheduler().scheduleRepeatingTask(Tetris.tetris, game.task, 10);
+//        server.getScheduler().scheduleDelayedRepeatingTask(Tetris.tetris, game.task, 60, 10, true);
+        server.getScheduler().scheduleRepeatingTask(Tetris.tetris, new ReadyTask(), 20);
         game.listener = new TetrisListener(player, game);
         server.getPluginManager().registerEvents(game.listener, Tetris.tetris);
-        player.teleport(new Location(getConfig().playX, getConfig().playY, getConfig().playZ));
+        double yaw = 0.0D;
+        switch (getConfig().direction) {
+            case 0: yaw = 180.0D; break;
+            case 1: yaw = 0.0D; break;
+            case 2: yaw = 90.0D; break;
+            case 3: yaw = 270.0; break;
+        }
+        player.teleport(new Location(getConfig().playX, getConfig().playY, getConfig().playZ, yaw));
         return game;
     }
 
@@ -170,6 +184,7 @@ public class TetrisGame {
      * @param d 0=下落 1=左移 2=右移
      */
     public boolean move(int d) {
+        if (getStats() != 2) return true;
         if (d == 0) {
             for (Pos pos : nowBlock.pos) {
                 Pos temp = new Pos(pos.x, pos.y - 1);
@@ -248,6 +263,7 @@ public class TetrisGame {
      * 控制方块旋转
      */
     public void rotate() {
+        if (getStats() != 2) return;
         if (nowBlock.getType() == 1) return;
         Pos[] temp = new Pos[4];
         if (nowBlock.getType() == 0) {
@@ -589,7 +605,7 @@ public class TetrisGame {
         server.getScheduler().scheduleRepeatingTask(Tetris.tetris, new EndTask(this), 2);
     }
 
-    public void setStats(boolean stats) {
+    public void setStats(int stats) {
         TetrisGame.stats = stats;
     }
 
@@ -599,6 +615,10 @@ public class TetrisGame {
 
     public void addScore(int i) {
         score += i;
+    }
+
+    public Task getGameTask() {
+        return task;
     }
 
     static class Pos {

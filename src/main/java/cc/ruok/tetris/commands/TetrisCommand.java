@@ -33,7 +33,7 @@ public class TetrisCommand extends Command {
                         }
                         break;
                     case "play":
-                        if (!TetrisGame.getStats()) {
+                        if (TetrisGame.getStats() == 0) {
                             new Thread(() -> TetrisGame.start(player)).start();
                             return true;
                         } else {

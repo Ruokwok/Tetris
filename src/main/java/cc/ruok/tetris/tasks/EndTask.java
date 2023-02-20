@@ -40,7 +40,7 @@ public class EndTask extends Task {
             d = false;
         }
         if (line < 0) {
-            game.setStats(false);
+            game.setStats(0);
             cancel();
         }
     }
