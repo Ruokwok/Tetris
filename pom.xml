@@ -38,9 +38,6 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
                         </manifest>
-<!--                        <manifestEntries>-->
-<!--                            <Class-path>.lib/[Tips前置(v1.2.7)]ScoreboardAPI-1.3.jar</Class-path>-->
-<!--                        </manifestEntries>-->
                     </archive>
                 </configuration>
             </plugin>
