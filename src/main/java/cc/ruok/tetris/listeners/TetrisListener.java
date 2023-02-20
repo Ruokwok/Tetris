@@ -125,4 +125,8 @@ public class TetrisListener implements Listener {
         press = false;
     }
 
+    public Position getPosition() {
+        return position;
+    }
+
 }

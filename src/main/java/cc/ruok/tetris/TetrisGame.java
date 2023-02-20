@@ -8,6 +8,7 @@ import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.event.HandlerList;
 import cn.nukkit.level.Level;
+import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.particle.DestroyBlockParticle;
 import cn.nukkit.math.Vector3;
@@ -123,6 +124,7 @@ public class TetrisGame {
         server.getScheduler().scheduleRepeatingTask(Tetris.tetris, game.task, 10);
         game.listener = new TetrisListener(player, game);
         server.getPluginManager().registerEvents(game.listener, Tetris.tetris);
+        player.teleport(new Location(getConfig().playX, getConfig().playY, getConfig().playZ));
         return game;
     }
 
