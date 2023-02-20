@@ -33,7 +33,8 @@ public class TetrisGame {
     private TetrisListener listener;
 
     private int score = 0;
-    private int gamemode = 0;
+    private int clearLine = 0;
+    private int index = 0;
 
     private int blockX;
     private int blockY;
@@ -117,7 +118,6 @@ public class TetrisGame {
         stats = 1;
         game = new TetrisGame();
         game.setNextBlock(new TetrisBlock());
-        game.next();
         game.task = new GameTask();
         game.player = player;
         origin = new Position(Tetris.tetris.config.originX, Tetris.tetris.config.originY, Tetris.tetris.config.originZ, level);
@@ -125,9 +125,6 @@ public class TetrisGame {
         game.blockX = 3;
         game.blockY = 20;
         game.clearScreen();
-//        game.spawn();
-        game.gamemode = player.getGamemode();
-//        server.getScheduler().scheduleDelayedRepeatingTask(Tetris.tetris, game.task, 60, 10, true);
         server.getScheduler().scheduleRepeatingTask(Tetris.tetris, new ReadyTask(), 20);
         game.listener = new TetrisListener(player, game);
         server.getPluginManager().registerEvents(game.listener, Tetris.tetris);
@@ -156,6 +153,7 @@ public class TetrisGame {
 
     public void next() {
         this.nowBlock = nextBlock;
+        index++;
         while (true) {
             TetrisBlock tb = new TetrisBlock();
             //确保不会连续出两个一样颜色的块
@@ -511,6 +509,7 @@ public class TetrisGame {
     public void remove(ArrayList<Integer> line) {
         //TODO 添加积分
         addScore(line.size() * line.size() * 10);
+        clearLine += line.size();
         for (int l : line) {
             for (int x = 0; x < 10; x++) {
                 Position pos = getPosition(x, l);
@@ -613,12 +612,20 @@ public class TetrisGame {
         return score;
     }
 
+    public int getClearLine() {
+        return clearLine;
+    }
+
     public void addScore(int i) {
         score += i;
     }
 
     public Task getGameTask() {
         return task;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     static class Pos {

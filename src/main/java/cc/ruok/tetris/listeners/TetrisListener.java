@@ -85,10 +85,8 @@ public class TetrisListener implements Listener {
         double _x = (x >= 0)? x : -x;
         double _z = (z >= 0)? z : -z;
         if (x == 0 && z == 0) return;
-        player.sendTip("x:" + x + " z:" + z);
         event.getPlayer().teleport(position);
         if (_x > _z) {
-            onLocationMove(event.getPlayer(), (x >= 0)?4:3);
             if (x >= 0) {
                 if (Tetris.tetris.config.direction == 0) game.move(2);
                 if (Tetris.tetris.config.direction == 1) game.move(1);
@@ -101,7 +99,6 @@ public class TetrisListener implements Listener {
                 if (Tetris.tetris.config.direction == 3) game.fall();
             }
         } else {
-            onLocationMove(event.getPlayer(), (z >= 0)?2:1);
             if (z >= 0) {
                 if (Tetris.tetris.config.direction == 0) game.fall();
                 if (Tetris.tetris.config.direction == 1) game.rotate();
@@ -114,11 +111,6 @@ public class TetrisListener implements Listener {
                 if (Tetris.tetris.config.direction == 3) game.move(1);
             }
         }
-    }
-
-    public void onLocationMove(Player player, int dire) {
-        String s = (dire == 1)?"W":((dire == 2)?"S":((dire == 3)?"A":"D"));
-        player.sendTip(s);
     }
 
     public void onPress() {
