@@ -49,9 +49,15 @@ public class TetrisCommand extends Command {
                         if (player.isOp()) {
                             player.sendMessage("/tetris set - 俄罗斯方块设置");
                         }
+
                 }
 
+            } else {
+                player.sendMessage("[俄罗斯方块] 查看帮助:");
+                player.sendMessage("/tetris help");
             }
+        } else {
+            commandSender.sendMessage("该指令不能以控制台执行!");
         }
         return false;
     }
