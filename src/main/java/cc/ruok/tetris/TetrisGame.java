@@ -43,6 +43,7 @@ public class TetrisGame {
     private int blockId = 35;
     private int speed = 10;
     private int effect = 0;
+    private int keen = 1;
 
     private int[][] layout = new int[20][10];
     protected static Position origin;
@@ -152,10 +153,15 @@ public class TetrisGame {
             case 3: blockId = 159; break;
         }
         switch (getConfig().speed) {
-            case 0: speed = 5; break;
-            case 1: speed = 10; break;
-            case 2: speed = 15; break;
-            case 3: speed = 20; break;
+            case 0: speed = 20; break;
+            case 1: speed = 15; break;
+            case 2: speed = 10; break;
+            case 3: speed = 5; break;
+        }
+        switch (getConfig().keen) {
+            case 0: keen = 10; break;
+            case 1: keen = 7; break;
+            case 2: keen = 4; break;
         }
         effect = getConfig().effect;
     }
@@ -671,6 +677,10 @@ public class TetrisGame {
 
     public int getEffect() {
         return effect;
+    }
+
+    public int getKeen() {
+        return keen;
     }
 
     static class Pos {

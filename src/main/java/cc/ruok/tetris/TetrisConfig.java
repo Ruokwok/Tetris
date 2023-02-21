@@ -19,7 +19,8 @@ public class TetrisConfig {
     public int direction = 0;
     public int block = 0;
     public int effect = 0;
-    public int speed = 1;
+    public int speed = 2;
+    public int keen = 1;
 
     public void save(File file) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

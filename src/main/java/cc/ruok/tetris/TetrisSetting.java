@@ -132,24 +132,30 @@ public class TetrisSetting {
 
     public static void config(Player player) {
         TetrisConfig config = Tetris.tetris.config;
+        ArrayList<String> keen = new ArrayList<>();
+        keen.add("低");
+        keen.add("中");
+        keen.add("高");
         ArrayList<String> blocks = new ArrayList<>();
         blocks.add("羊毛");
         blocks.add("混凝土");
         blocks.add("染色玻璃");
         blocks.add("陶瓦");
         ArrayList<String> speed = new ArrayList<>();
+        speed.add("0.2x");
         speed.add("0.5x");
         speed.add("1.0x");
         speed.add("1.5x");
-        speed.add("2.0x");
         ArrayList<String> effects = new ArrayList<>();
         effects.add("方块破坏");
         effects.add("爆炸");
         effects.add("大爆炸");
         effects.add("白色烟雾");
         effects.add("无");
-        FormWindowCustom window = new FormWindowCustom("俄罗斯方块设置");
-        window.addElement(new ElementStepSlider("方块下落速度", speed, config.speed));
+        FormWindowCustom window = new FormWindowCustom("俄罗斯方块");
+        window.addElement(new ElementLabel("俄罗斯方块游戏设置"));
+        window.addElement(new ElementStepSlider("方块下落速度 ", speed, config.speed));
+        window.addElement(new ElementStepSlider("方向键灵敏度 ", keen, config.keen));
         window.addElement(new ElementDropdown("方块类型", blocks, config.block));
         window.addElement(new ElementDropdown("粒子效果", effects, config.effect < 0 ? 4 : config.effect));
         player.showFormWindow(window, 1145142233);

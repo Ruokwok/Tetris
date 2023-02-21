@@ -78,7 +78,7 @@ public class TetrisListener implements Listener {
         if (event.getPlayer() != player) return;
         if (press) return;
         press = true;
-        Server.getInstance().getScheduler().scheduleDelayedTask(this::onPress, 8);
+        Server.getInstance().getScheduler().scheduleDelayedTask(this::onPress, game.getKeen());
 
         double x = event.getTo().x - event.getFrom().x;
         double z = event.getTo().z - event.getFrom().z;
