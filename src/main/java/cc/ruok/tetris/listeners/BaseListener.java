@@ -14,20 +14,6 @@ import cn.nukkit.level.particle.DestroyBlockParticle;
 
 public class BaseListener implements Listener {
 
-    @EventHandler
-    public void onI(PlayerInteractEvent event) {
-        if (event.getItem().getId() != 0) return;
-        Block block = event.getBlock();
-        if (event.getPlayer().getName().equals("Ruok2333")) {
-            event.getPlayer().sendMessage("id:" + block.getId() + " x:" + block.getX() + " y:" + block.getY() + " z:" + block.getZ());
-//            TetrisGame.useBreakOn(TetrisGame.getPosition(0, 0), event.getPlayer());
-//            TetrisGame.getLevel().setBlock(block, Block.get(0));
-        }
-    }
 
-    @EventHandler
-    public void onBreak(BlockBreakEvent event) {
-
-    }
 
 }
