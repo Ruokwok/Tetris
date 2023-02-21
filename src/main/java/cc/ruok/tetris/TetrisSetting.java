@@ -5,11 +5,15 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.event.HandlerList;
+import cn.nukkit.form.element.*;
+import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowModal;
 import cn.nukkit.form.window.FormWindowSimple;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
+
+import java.util.ArrayList;
 
 public class TetrisSetting {
 
@@ -127,7 +131,28 @@ public class TetrisSetting {
     }
 
     public static void config(Player player) {
-
+        TetrisConfig config = Tetris.tetris.config;
+        ArrayList<String> blocks = new ArrayList<>();
+        blocks.add("羊毛");
+        blocks.add("混凝土");
+        blocks.add("染色玻璃");
+        blocks.add("陶瓦");
+        ArrayList<String> speed = new ArrayList<>();
+        speed.add("0.5x");
+        speed.add("1.0x");
+        speed.add("1.5x");
+        speed.add("2.0x");
+        ArrayList<String> effects = new ArrayList<>();
+        effects.add("方块破坏");
+        effects.add("爆炸");
+        effects.add("大爆炸");
+        effects.add("白色烟雾");
+        effects.add("无");
+        FormWindowCustom window = new FormWindowCustom("俄罗斯方块设置");
+        window.addElement(new ElementStepSlider("方块下落速度", speed, config.speed));
+        window.addElement(new ElementDropdown("方块类型", blocks, config.block));
+        window.addElement(new ElementDropdown("粒子效果", effects, config.effect < 0 ? 4 : config.effect));
+        player.showFormWindow(window, 1145142233);
     }
 
 }

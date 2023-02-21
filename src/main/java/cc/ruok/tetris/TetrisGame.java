@@ -41,6 +41,8 @@ public class TetrisGame {
     private Position initPos;
 
     private int blockId = 35;
+    private int speed = 10;
+    private int effect = 0;
 
     private int[][] layout = new int[20][10];
     protected static Position origin;
@@ -118,6 +120,7 @@ public class TetrisGame {
         }
         stats = 1;
         game = new TetrisGame();
+        game.loadConfig();
         game.setNextBlock(new TetrisBlock());
         game.task = new GameTask();
         game.player = player;
@@ -139,6 +142,22 @@ public class TetrisGame {
         }
         player.teleport(new Location(getConfig().playX, getConfig().playY, getConfig().playZ, yaw));
         return game;
+    }
+
+    public void loadConfig() {
+        switch (getConfig().block) {
+            case 0: blockId = 35; break;
+            case 1: blockId = 236; break;
+            case 2: blockId = 241; break;
+            case 3: blockId = 159; break;
+        }
+        switch (getConfig().speed) {
+            case 0: speed = 5; break;
+            case 1: speed = 10; break;
+            case 2: speed = 15; break;
+            case 3: speed = 20; break;
+        }
+        effect = getConfig().effect;
     }
 
     public void setNextBlock(TetrisBlock block) {
@@ -516,7 +535,7 @@ public class TetrisGame {
             for (int x = 0; x < 10; x++) {
                 Position pos = getPosition(x, l);
                 if (pos != null) {
-                   useBreakOn(pos, player);
+                   useBreakOn(pos);
                 }
             }
         }
@@ -537,13 +556,23 @@ public class TetrisGame {
         }
     }
 
-    public static void useBreakOn(Vector3 vector3, Player player) {
-//        getLevel().useBreakOn(vector3, null, player, true);
+    public void useBreakOn(Vector3 vector3) {
         Block block = getLevel().getBlock(vector3);
-        Vector3 v3 = new Vector3(vector3.x, vector3.y, vector3.z + 1);
-//        getLevel().addParticle(new DestroyBlockParticle(v3, block));
-        getLevel().addParticle(new HugeExplodeSeedParticle(vector3));
+        Vector3 v3 = vector3;
+        switch (getConfig().direction) {
+            case 0: v3 = vector3.add(0, 0, 1); break;
+            case 1: v3 = vector3.add(0, 0, -1); break;
+            case 2: v3 = vector3.add(1); break;
+            case 3: v3 = vector3.add(-1); break;
+        }
         getLevel().setBlock(vector3, Block.get(0));
+        if (getEffect() < 0) return;
+        switch (getEffect()) {
+            case 0: getLevel().addParticle(new DestroyBlockParticle(v3, block)); break;
+            case 1: getLevel().addParticle(new ExplodeParticle(v3)); break;
+            case 2: getLevel().addParticle(new HugeExplodeSeedParticle(vector3)); break;
+            case 3: getLevel().addParticle(new MobSpawnParticle(v3, 1F, 1F)); break;
+        }
     }
 
     /**
@@ -634,6 +663,14 @@ public class TetrisGame {
 
     public Position getInitPos() {
         return initPos;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getEffect() {
+        return effect;
     }
 
     static class Pos {

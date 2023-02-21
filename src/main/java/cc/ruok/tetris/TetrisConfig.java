@@ -17,6 +17,9 @@ public class TetrisConfig {
     public double playY = 0D;
     public double playZ = 0D;
     public int direction = 0;
+    public int block = 0;
+    public int effect = 0;
+    public int speed = 1;
 
     public void save(File file) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
