@@ -40,6 +40,7 @@ public class EndTask extends Task {
             d = false;
         }
         if (line < 0) {
+            game.getPlayer().teleport(game.getInitPos());
             game.setStats(0);
             cancel();
         }

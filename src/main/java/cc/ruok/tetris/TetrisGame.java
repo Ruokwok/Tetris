@@ -11,7 +11,7 @@ import cn.nukkit.event.HandlerList;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
-import cn.nukkit.level.particle.DestroyBlockParticle;
+import cn.nukkit.level.particle.*;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.scheduler.Task;
 
@@ -38,6 +38,7 @@ public class TetrisGame {
 
     private int blockX;
     private int blockY;
+    private Position initPos;
 
     private int blockId = 35;
 
@@ -120,6 +121,7 @@ public class TetrisGame {
         game.setNextBlock(new TetrisBlock());
         game.task = new GameTask();
         game.player = player;
+        game.initPos = player.getPosition();
         origin = new Position(Tetris.tetris.config.originX, Tetris.tetris.config.originY, Tetris.tetris.config.originZ, level);
         level = server.getLevelByName(Tetris.tetris.config.level);
         game.blockX = 3;
@@ -538,7 +540,9 @@ public class TetrisGame {
     public static void useBreakOn(Vector3 vector3, Player player) {
 //        getLevel().useBreakOn(vector3, null, player, true);
         Block block = getLevel().getBlock(vector3);
-        getLevel().addParticle(new DestroyBlockParticle(vector3.add(0.5), block));
+        Vector3 v3 = new Vector3(vector3.x, vector3.y, vector3.z + 1);
+//        getLevel().addParticle(new DestroyBlockParticle(v3, block));
+        getLevel().addParticle(new HugeExplodeSeedParticle(vector3));
         getLevel().setBlock(vector3, Block.get(0));
     }
 
@@ -626,6 +630,10 @@ public class TetrisGame {
 
     public int getIndex() {
         return index;
+    }
+
+    public Position getInitPos() {
+        return initPos;
     }
 
     static class Pos {
