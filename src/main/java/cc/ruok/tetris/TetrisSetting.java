@@ -100,6 +100,10 @@ public class TetrisSetting {
         generateBorder(config, player);
     }
 
+    public int getStep() {
+        return step;
+    }
+
     /**
      * 生成默认边框
      * @param config 配置文件
