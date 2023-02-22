@@ -19,7 +19,7 @@ public class SettingListener implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
-        if (event.getPlayer() == player && TetrisSetting.getInstance().getStep() != 0) {
+        if (event.getPlayer() == player && TetrisSetting.getInstance().getStep() == 2) {
             Thread runnable = new Thread(() -> {
                 try {
                     Thread.sleep(50);
