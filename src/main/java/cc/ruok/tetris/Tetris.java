@@ -32,8 +32,6 @@ public class Tetris extends PluginBase {
     @Override
     public void onEnable() {
         super.onEnable();
-        server.getDefaultLevel().gameRules.setGameRule(GameRule.SHOW_COORDINATES, true);
-        server.getDefaultLevel().gameRules.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
         server.getCommandMap().register("开始游戏", new TetrisCommand());
         server.getPluginManager().registerEvents(new BaseListener(), this);
     }
