@@ -640,7 +640,7 @@ public class TetrisGame {
 
     public void stop() {
         task.cancel();
-        bgmTask.cancel();
+        if (bgmTask != null) bgmTask.cancel();
         player.sendMessage("游戏结束");
         player.sendMessage("得分:" + score);
         if (player.gamemode == 2) player.setGamemode(2);

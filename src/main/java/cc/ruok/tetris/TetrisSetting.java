@@ -162,6 +162,7 @@ public class TetrisSetting {
         window.addElement(new ElementStepSlider("方向键灵敏度 ", keen, config.keen));
         window.addElement(new ElementDropdown("方块类型", blocks, config.block));
         window.addElement(new ElementDropdown("粒子效果", effects, config.effect < 0 ? 4 : config.effect));
+        window.addElement(new ElementToggle("BGM", config.bgm));
         player.showFormWindow(window, 1145142233);
     }
 

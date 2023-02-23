@@ -42,6 +42,7 @@ public class BaseListener implements Listener {
                 case "白色烟雾": config.effect = 3; break;
                 case "无": config.effect = -1; break;
             }
+            config.bgm = (boolean) map.get(5);
             config.save(Tetris.tetris.configFile);
             event.getPlayer().sendMessage("成功保存设置!将在下一次游戏时生效.");
         }

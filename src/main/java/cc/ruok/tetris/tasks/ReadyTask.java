@@ -16,7 +16,7 @@ public class ReadyTask extends Task {
             game.getPlayer().sendTitle("开始!");
             game.spawn();
             game.setStats(2);
-            game.playBGM();
+            if (TetrisGame.getConfig().bgm) game.playBGM();
             Server.getInstance().getScheduler().scheduleRepeatingTask(Tetris.tetris, game.getGameTask(), game.getSpeed());
             cancel();
         } else {
