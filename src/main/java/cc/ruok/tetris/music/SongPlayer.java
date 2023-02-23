@@ -70,14 +70,7 @@ public class SongPlayer {
             Sound sound = SOUNDS.getOrDefault((int) note.getInstrument(), null);
             float fl = KEYS.getOrDefault(note.getKey() - 33, 0F);
             if (sound != null) {
-                PlaySoundPacket soundPk = new PlaySoundPacket();
-                soundPk.name = sound.getSound();
-                soundPk.volume = l.getVolume();
-                soundPk.pitch = fl;
-                soundPk.x = vector3.getFloorX();
-                soundPk.y = vector3.getFloorY();
-                soundPk.z = vector3.getFloorZ();
-                TetrisGame.getGame().getPlayer().dataPacket(soundPk);
+                TetrisGame.getLevel().addSound(vector3, sound, 1, fl);
             }
         }
     }
