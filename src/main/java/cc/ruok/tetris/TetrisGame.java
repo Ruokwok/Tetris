@@ -1,6 +1,10 @@
 package cc.ruok.tetris;
 
 import cc.ruok.tetris.listeners.TetrisListener;
+import cc.ruok.tetris.music.NBSDecoder;
+import cc.ruok.tetris.music.Song;
+import cc.ruok.tetris.music.SongPlayer;
+import cc.ruok.tetris.tasks.BgmTask;
 import cc.ruok.tetris.tasks.EndTask;
 import cc.ruok.tetris.tasks.GameTask;
 import cc.ruok.tetris.tasks.ReadyTask;
@@ -31,6 +35,7 @@ public class TetrisGame {
     private GameTask task;
     private Player player;
     private TetrisListener listener;
+    private BgmTask bgmTask;
 
     private int score = 0;
     private int clearLine = 0;
@@ -635,12 +640,20 @@ public class TetrisGame {
 
     public void stop() {
         task.cancel();
+        bgmTask.cancel();
         player.sendMessage("游戏结束");
         player.sendMessage("得分:" + score);
         if (player.gamemode == 2) player.setGamemode(2);
         server.broadcastMessage(player.getName() + "完成了俄罗斯方块游戏，得分: " + getScore());
         HandlerList.unregisterAll(listener);
         server.getScheduler().scheduleRepeatingTask(Tetris.tetris, new EndTask(this), 2);
+    }
+
+    public void playBGM() {
+        Song song = NBSDecoder.parse(getClass().getResourceAsStream("/bgm.nbs"));
+        SongPlayer songPlayer = new SongPlayer(song);
+        bgmTask = new BgmTask(songPlayer);
+        server.getScheduler().scheduleRepeatingTask(Tetris.tetris, bgmTask, 2);
     }
 
     public void setStats(int stats) {
