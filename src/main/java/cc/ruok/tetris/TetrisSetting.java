@@ -40,7 +40,10 @@ public class TetrisSetting {
 
     public void setting(Player player) {
         this.player = player;
-//        System.out.println(step);
+        if (TetrisGame.getStats() != 0) {
+            player.sendMessage("游戏正在进行中，请等待游戏结束后进行设置.");
+            return;
+        }
         switch (step) {
             case 0: set1(); break;
             case 1: set2(); break;
