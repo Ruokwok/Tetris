@@ -1,10 +1,13 @@
 package cc.ruok.tetris.commands;
 
+import cc.ruok.tetris.Ranking;
 import cc.ruok.tetris.TetrisGame;
 import cc.ruok.tetris.TetrisSetting;
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
+
+import java.util.Map;
 
 public class TetrisCommand extends Command {
 
@@ -40,14 +43,24 @@ public class TetrisCommand extends Command {
                             commandSender.sendMessage("游戏正在进行");
                             return false;
                         }
+                    case "ranking":
+                        player.sendMessage("==== 俄罗斯方块 - 排行榜 ====");
+                        int i = 0;
+                        Map<String, String> map = Ranking.sort();
+                        for (Map.Entry<String, String> entry : map.entrySet()) {
+                            player.sendMessage("[" + i + "] " + entry.getKey() + " - " + entry.getValue());
+                        }
+                        break;
                     case "help":
                         player.sendMessage("[俄罗斯方块] 帮助");
                         player.sendMessage("方向键 - 左右移动");
                         player.sendMessage("前进/跳跃 - 旋转");
                         player.sendMessage("后退 - 下落");
                         player.sendMessage("/tetris play - 开始游戏");
+                        player.sendMessage("/tetris ranking - 查看排行榜");
                         if (player.isOp()) {
-                            player.sendMessage("/tetris set - 俄罗斯方块设置");
+                            player.sendMessage("/tetris set - 俄罗斯方块画布设置");
+                            player.sendMessage("/tetris config - 俄罗斯方块详细设置");
                         }
 
                 }
