@@ -136,6 +136,10 @@ public class TetrisSetting {
 
     public static void config(Player player) {
         TetrisConfig config = Tetris.tetris.config;
+        if (config == null) {
+            player.sendMessage("请先使用/tetris set设置游戏画布.");
+            return;
+        }
         ArrayList<String> keen = new ArrayList<>();
         keen.add("低");
         keen.add("中");
