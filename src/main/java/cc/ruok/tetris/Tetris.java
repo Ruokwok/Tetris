@@ -27,6 +27,7 @@ public class Tetris extends PluginBase {
         } else {
             config = TetrisConfig.load();
         }
+        Ranking.load();
     }
 
     @Override
@@ -35,24 +36,6 @@ public class Tetris extends PluginBase {
         server.getCommandMap().register("开始游戏", new TetrisCommand());
         server.getPluginManager().registerEvents(new BaseListener(), this);
     }
-
-    /**
-     * 1橙色
-     * 2紫色
-     * 3青色
-     * 4黄色
-     * 5绿色
-     * 6粉色
-     * 7深灰色
-     * 8灰色
-     * 9深青色
-     * 10紫色
-     * 11蓝色
-     * 12棕色
-     * 13深绿
-     * 14红色
-     * 15黑色
-     */
 
     @Override
     public void onDisable() {

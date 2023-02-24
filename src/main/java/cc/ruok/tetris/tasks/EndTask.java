@@ -1,5 +1,6 @@
 package cc.ruok.tetris.tasks;
 
+import cc.ruok.tetris.Ranking;
 import cc.ruok.tetris.TetrisGame;
 import cn.nukkit.block.Block;
 import cn.nukkit.level.Position;
@@ -15,6 +16,7 @@ public class EndTask extends Task {
         this.game = game;
         line = 0;
         d = true;
+        Ranking.put(game.getPlayer().getName(), game.getScore());
     }
 
     @Override
