@@ -72,7 +72,7 @@ public class TetrisSetting {
         step = 0;
         position = player.getPosition();
         player.sendMessage("设置完成! 详细配置请使用/tetris config修改");
-        TetrisConfig config = new TetrisConfig();
+        TetrisConfig config = Tetris.tetris.config == null ? new TetrisConfig() : Tetris.tetris.config;
         config.level = level.getName();
         config.playX = position.getX();
         config.playZ = position.getZ();
