@@ -653,7 +653,7 @@ public class TetrisGame {
         Song song = NBSDecoder.parse(getClass().getResourceAsStream("/bgm.nbs"));
         SongPlayer songPlayer = new SongPlayer(song);
         bgmTask = new BgmTask(songPlayer);
-        server.getScheduler().scheduleRepeatingTask(Tetris.tetris, bgmTask, 2);
+        server.getScheduler().scheduleDelayedRepeatingTask(Tetris.tetris, bgmTask,20, 2);
     }
 
     public void setStats(int stats) {
