@@ -34,6 +34,7 @@ public class Tetris extends PluginBase {
     public void onEnable() {
         super.onEnable();
         TetrisGame.level = server.getLevelByName(Tetris.tetris.config.level);
+        Ranking.updateFloatingText();
         server.getCommandMap().register("开始游戏", new TetrisCommand());
         server.getPluginManager().registerEvents(new BaseListener(), this);
     }

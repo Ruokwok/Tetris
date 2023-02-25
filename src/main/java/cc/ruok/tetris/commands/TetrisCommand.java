@@ -44,6 +44,11 @@ public class TetrisCommand extends Command {
                             return false;
                         }
                     case "ranking":
+                        if (args[1] != null && args[1].equals("set") && player.isOp()) {
+                            Ranking.setFloatingText(player); return true;
+                        } else if (args[1] != null && args[1].equals("remove") && player.isOp()) {
+                            Ranking.removeFloatingText(player); return true;
+                        }
                         player.sendMessage("==== 俄罗斯方块 - 排行榜 ====");
                         int i = 0;
                         Map<String, String> map = Ranking.sort();
@@ -59,6 +64,8 @@ public class TetrisCommand extends Command {
                         player.sendMessage("/tetris play - 开始游戏");
                         player.sendMessage("/tetris ranking - 查看排行榜");
                         if (player.isOp()) {
+                            player.sendMessage("/tetris ranking set - 设置排行榜位置");
+                            player.sendMessage("/tetris ranking remove - 移除排行榜");
                             player.sendMessage("/tetris set - 俄罗斯方块画布设置");
                             player.sendMessage("/tetris config - 俄罗斯方块详细设置");
                         }

@@ -22,6 +22,9 @@ public class TetrisConfig {
     public int speed = 2;
     public int keen = 1;
     public boolean bgm = true;
+    public Seat ranking;
+    public long rankingId;
+
 
     public void save(File file) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -44,5 +47,15 @@ public class TetrisConfig {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static class Seat {
+
+        public double x = 0D;
+        public double y = 0D;
+        public double z = 0D;
+        public int chunkX = 0;
+        public int chunkZ = 0;
+
     }
 }
