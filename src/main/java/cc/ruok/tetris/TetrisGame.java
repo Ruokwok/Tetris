@@ -27,7 +27,7 @@ public class TetrisGame {
     private static int stats = 0;
     private static TetrisGame game;
 //    private static Level level = null;
-    private static Level level;
+    protected static Level level;
     private static Server server = Server.getInstance();
 
     private TetrisBlock nowBlock;
