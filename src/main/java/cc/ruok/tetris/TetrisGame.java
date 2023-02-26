@@ -539,9 +539,7 @@ public class TetrisGame {
      * @param line 待清理的行号
      */
     public void remove(ArrayList<Integer> line) {
-        //TODO 添加积分
-        addScore(line.size() * line.size() * 10);
-        clearLine += line.size();
+        addScore(line.size());
         for (int l : line) {
             for (int x = 0; x < 10; x++) {
                 Position pos = getPosition(x, l);
@@ -669,8 +667,9 @@ public class TetrisGame {
         return clearLine;
     }
 
-    public void addScore(int i) {
-        score += i;
+    public void addScore(int line) {
+        score += 10 * line * (line + 1) / 2;
+        clearLine += line;
     }
 
     public Task getGameTask() {
