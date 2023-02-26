@@ -15,7 +15,7 @@ public class ReadyTask extends Task {
         TetrisGame game = TetrisGame.getGame();
         if (i == 0) {
             game.getPlayer().sendTitle("开始!");
-            if (TetrisGame.getConfig().bgm) TetrisGame.getLevel().addSound(game.getPlayer(), Sound.NOTE_HARP, 1, 1.887749F);
+            if (TetrisGame.getConfig().bgm) TetrisGame.getLevel().addSound(game.getPlayer(), Sound.NOTE_HARP, 1, 1.498307F);
             game.spawn();
             game.setStats(2);
             if (TetrisGame.getConfig().bgm) game.playBGM();
@@ -23,7 +23,7 @@ public class ReadyTask extends Task {
             cancel();
         } else {
             game.getPlayer().sendTitle(String.valueOf(i));
-            if (TetrisGame.getConfig().bgm) TetrisGame.getLevel().addSound(game.getPlayer(), Sound.NOTE_HARP, 1, 0.8F);
+            if (TetrisGame.getConfig().bgm) TetrisGame.getLevel().addSound(game.getPlayer(), Sound.NOTE_HARP, 1, 0.749154F);
             i--;
         }
     }
