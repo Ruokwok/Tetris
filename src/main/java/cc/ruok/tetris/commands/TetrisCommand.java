@@ -12,7 +12,7 @@ import java.util.Map;
 public class TetrisCommand extends Command {
 
     public TetrisCommand() {
-        super("tetris");
+        super("tetris", "俄罗斯方块");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class TetrisCommand extends Command {
                         int i = 0;
                         Map<String, String> map = Ranking.sort();
                         for (Map.Entry<String, String> entry : map.entrySet()) {
-                            player.sendMessage("§e[§a" + ++i + "§e] §e" + entry.getKey() + " §f- §l§b" + entry.getValue());
+                            player.sendMessage("§c[§d" + ++i + "§c] §e" + entry.getKey() + " §f- §l§b" + entry.getValue());
                         }
                         break;
                     case "help":
@@ -77,7 +77,7 @@ public class TetrisCommand extends Command {
                 player.sendMessage("§a/tetris §bhelp");
             }
         } else {
-            commandSender.sendMessage("§d该指令不能以控制台执行!");
+            commandSender.sendMessage("§c该指令不能以控制台执行!");
         }
         return false;
     }

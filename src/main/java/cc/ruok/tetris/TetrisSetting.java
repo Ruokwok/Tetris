@@ -8,9 +8,7 @@ import cn.nukkit.event.HandlerList;
 import cn.nukkit.form.element.*;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowModal;
-import cn.nukkit.form.window.FormWindowSimple;
 import cn.nukkit.level.Level;
-import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
 
 import java.util.ArrayList;
@@ -41,7 +39,7 @@ public class TetrisSetting {
     public void setting(Player player) {
         this.player = player;
         if (TetrisGame.getStats() != 0) {
-            player.sendMessage("游戏正在进行中，请等待游戏结束后进行设置.");
+            player.sendMessage("§c游戏正在进行中，请等待游戏结束后进行设置.");
             return;
         }
         switch (step) {
@@ -54,27 +52,27 @@ public class TetrisSetting {
     public void set1() {
         step = 1;
         listener = new SettingListener(player);
-        player.sendMessage("第1步: 请建造一个 高20 宽10 的结构作为游戏画布");
+        player.sendMessage("§e第1步: §a请建造一个 高20 宽10 的结构作为游戏画布");
         Server.getInstance().getPluginManager().registerEvents(listener, Tetris.tetris);
         FormWindowModal window = new FormWindowModal("俄罗斯方块",
-                "第1步:\n" +
-                        "请建造一个 高20 宽10 的结构作为游戏画布\n" +
-                        "*可使用任意方块\n" +
-                        "*可位于x轴或z轴平面\n" +
-                        "建造完成后请再次使用/tetris set命令进行下一步", "知道了", "关闭");
+                "§e第1步:\n" +
+                        "§a请建造一个 高20 宽10 的结构作为游戏画布\n" +
+                        "§c*§b可使用任意方块\n" +
+                        "§c*§b可位于x轴或z轴平面\n" +
+                        "§f建造完成后请再次使用§a/tetris set§f命令进行下一步的设置", "知道了", "关闭");
         player.showFormWindow(window);
     }
 
     public void set2() {
         step = 2;
         level = player.getLevel();
-        player.sendMessage("第2步: 请破坏最左上角的方块");
+        player.sendMessage("§e第2步: §a请破坏最左上角的方块");
     }
 
     public void set3() {
         step = 0;
         position = player.getPosition();
-        player.sendMessage("设置完成! 详细配置请使用/tetris config修改");
+        player.sendMessage("§a设置完成! 详细配置请使用§b/tetris config§a修改");
         TetrisConfig config = Tetris.tetris.config == null ? new TetrisConfig() : Tetris.tetris.config;
         config.level = level.getName();
         config.playX = position.getX();

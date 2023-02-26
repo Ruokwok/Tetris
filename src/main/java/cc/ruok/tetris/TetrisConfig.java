@@ -40,7 +40,7 @@ public class TetrisConfig {
         try {
             TetrisConfig config = new Gson().fromJson(Utils.readFile(Tetris.tetris.configFile), TetrisConfig.class);
             if (config.direction < 0 || config.direction > 3) {
-                Tetris.tetris.getLogger().error("读取配置文件出错，请检查direction项!");
+                Tetris.tetris.getLogger().error("§c读取配置文件出错，请检查direction项!");
                 return null;
             }
             return config;

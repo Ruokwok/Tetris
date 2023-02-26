@@ -5,7 +5,6 @@ import cc.ruok.tetris.Tetris;
 import cc.ruok.tetris.TetrisConfig;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.entity.EntityDeathEvent;
 import cn.nukkit.event.entity.EntityDespawnEvent;
 import cn.nukkit.event.level.ChunkLoadEvent;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
@@ -48,7 +47,7 @@ public class BaseListener implements Listener {
             }
             config.bgm = (boolean) map.get(5);
             config.save(Tetris.tetris.configFile);
-            event.getPlayer().sendMessage("成功保存设置!将在下一次游戏时生效.");
+            event.getPlayer().sendMessage("§a成功保存设置!将在下一次游戏时生效.");
         }
     }
 

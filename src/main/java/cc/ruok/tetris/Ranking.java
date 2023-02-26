@@ -61,7 +61,6 @@ public class Ranking {
 
     /**
      * 取分数最高的前10名并排序
-     * @param map 得分数据
      * @return 排行榜
      * @param <K> 玩家名称
      * @param <V> 分数
@@ -105,11 +104,11 @@ public class Ranking {
                 config.save(Tetris.tetris.configFile);
                 entity.setScale(0F);
                 int i = 0;
-                StringBuilder name = new StringBuilder("[[ 俄罗斯方块 -- 排行榜 ]]\n");
+                StringBuilder name = new StringBuilder("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]\n");
                 for (Map.Entry<String, String> entry : map.entrySet()) {
-                    name.append("No.").append(++i).append(" ").append(entry.getKey()).append(" - ").append(entry.getValue()).append("\n");
+                    name.append("§aNo.").append(++i).append(" §l§e").append(entry.getKey()).append(" §f- §b").append(entry.getValue()).append("\n");
                 }
-                name.append("[[ 俄罗斯方块 -- 排行榜 ]]");
+                name.append("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]");
                 entity.setNameTag(name.toString());
                 entity.setNameTagAlwaysVisible(true);
                 entity.spawnToAll();
@@ -122,7 +121,7 @@ public class Ranking {
         Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
         if (text != null) {
             text.kill();
-            player.sendMessage("已移除排行榜.");
+            player.sendMessage("§l§a已移除排行榜.");
         }
     }
 
@@ -135,7 +134,7 @@ public class Ranking {
         seat.chunkZ = player.getChunkZ();
         TetrisGame.getConfig().ranking = seat;
         updateFloatingText();
-        player.sendMessage("已设置排行榜.");
+        player.sendMessage("§l§a已设置排行榜.");
     }
 
 }

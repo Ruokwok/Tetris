@@ -121,7 +121,7 @@ public class TetrisGame {
     public static TetrisGame start(Player player) {
         if (stats != 0) return null;
         if (Tetris.tetris.config == null) {
-            player.sendMessage("俄罗斯方块小游戏尚未进行配置，请联系管理员。");
+            player.sendMessage("§c俄罗斯方块小游戏尚未进行配置，请联系管理员。");
             return null;
         }
         stats = 1;
@@ -641,10 +641,11 @@ public class TetrisGame {
     public void stop() {
         task.cancel();
         if (bgmTask != null) bgmTask.cancel();
-        player.sendMessage("游戏结束");
-        player.sendMessage("得分:" + score);
+        player.sendMessage("§e[§6俄罗斯方块§e]§c§l游戏结束");
+        player.sendMessage("§e得分:§l§d" + score);
+        player.sendMessage("§e消除:§l§d" + getClearLine());
         if (player.gamemode == 2) player.setGamemode(2);
-        server.broadcastMessage(player.getName() + "完成了俄罗斯方块游戏，得分: " + getScore());
+        server.broadcastMessage("§l§a" + player.getName() + "§e完成了俄罗斯方块游戏，得分: §b" + getScore());
         HandlerList.unregisterAll(listener);
         server.getScheduler().scheduleRepeatingTask(Tetris.tetris, new EndTask(this), 2);
     }

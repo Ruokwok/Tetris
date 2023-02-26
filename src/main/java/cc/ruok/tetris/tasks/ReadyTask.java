@@ -14,7 +14,7 @@ public class ReadyTask extends Task {
     public void onRun(int _i) {
         TetrisGame game = TetrisGame.getGame();
         if (i == 0) {
-            game.getPlayer().sendTitle("开始!");
+            game.getPlayer().sendTitle("§l§a开始!");
             if (TetrisGame.getConfig().bgm) TetrisGame.getLevel().addSound(game.getPlayer(), Sound.NOTE_HARP, 1, 1.498307F);
             game.spawn();
             game.setStats(2);
@@ -22,7 +22,7 @@ public class ReadyTask extends Task {
             Server.getInstance().getScheduler().scheduleRepeatingTask(Tetris.tetris, game.getGameTask(), game.getSpeed());
             cancel();
         } else {
-            game.getPlayer().sendTitle(String.valueOf(i));
+            game.getPlayer().sendTitle("§l§e" + i);
             if (TetrisGame.getConfig().bgm) TetrisGame.getLevel().addSound(game.getPlayer(), Sound.NOTE_HARP, 1, 0.749154F);
             i--;
         }

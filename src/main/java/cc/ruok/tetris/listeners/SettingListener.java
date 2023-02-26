@@ -31,18 +31,18 @@ public class SettingListener implements Listener {
             runnable.start();
             if (p1 == null) {
                 p1 = event.getBlock().getLocation().clone();
-                player.sendMessage("第3步: 请破坏最右下角的方块");
+                player.sendMessage("§e第3步: §a请破坏最右下角的方块");
             } else {
                 try {
                     if (event.getBlock().y != p1.y - 19 ||
                             (Math.abs(event.getBlock().x - p1.x) == 9
                                     && Math.abs(event.getBlock().z - p1.z) == 9) ||
                             (p1.x != event.getBlock().x && p1.z != event.getBlock().z)) {
-                        player.sendMessage("操作有误，重置步骤!请检查画布尺寸是否正确(高20,宽10)");
+                        player.sendMessage("§c操作有误，重置步骤!请检查画布尺寸是否正确(高20,宽10)");
                         TetrisSetting.getInstance().resetStep();
                     } else {
                         p2 = event.getBlock().getLocation();
-                        player.sendMessage("第4步: 请前往进行游戏的最佳位置，再次输入/tetris set");
+                        player.sendMessage("§e第4步: §a请前往进行游戏的最佳位置，再次输入/tetris set");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
