@@ -1,9 +1,13 @@
 package cc.ruok.tetris.listeners;
 
+import cc.ruok.tetris.Ranking;
 import cc.ruok.tetris.Tetris;
 import cc.ruok.tetris.TetrisConfig;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
+import cn.nukkit.event.entity.EntityDeathEvent;
+import cn.nukkit.event.entity.EntityDespawnEvent;
+import cn.nukkit.event.level.ChunkLoadEvent;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.response.FormResponseCustom;
 
@@ -45,6 +49,24 @@ public class BaseListener implements Listener {
             config.bgm = (boolean) map.get(5);
             config.save(Tetris.tetris.configFile);
             event.getPlayer().sendMessage("成功保存设置!将在下一次游戏时生效.");
+        }
+    }
+
+    @EventHandler
+    public void onEntityDespawn(EntityDespawnEvent event) {
+        TetrisConfig config = Tetris.tetris.config;
+        if (config.ranking != null && config.rankingId == event.getEntity().getId()) {
+            Ranking.updateFloatingText();
+        }
+    }
+
+    @EventHandler
+    public void onChunkLoad(ChunkLoadEvent event) {
+        TetrisConfig config = Tetris.tetris.config;
+        if (config.ranking != null) {
+            if (event.getChunk().getX() == config.ranking.chunkX && event.getChunk().getZ() == config.ranking.chunkZ) {
+                Ranking.updateFloatingText();
+            }
         }
     }
 
