@@ -72,7 +72,8 @@ public class TetrisSetting {
     public void set3() {
         step = 0;
         position = player.getPosition();
-        player.sendMessage("§a设置完成! 详细配置请使用§b/tetris config§a修改");
+        player.sendMessage("§e设置完成!详细配置请使用§b/tetris config§e修改");
+        player.sendMessage("§e使用§b/tetris ranking set§e命令可设置排行榜浮空字");
         TetrisConfig config = Tetris.tetris.config == null ? new TetrisConfig() : Tetris.tetris.config;
         config.level = level.getName();
         config.playX = position.getX();
