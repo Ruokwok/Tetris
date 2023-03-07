@@ -52,14 +52,6 @@ public class BaseListener implements Listener {
     }
 
     @EventHandler
-    public void onEntityDespawn(EntityDespawnEvent event) {
-        TetrisConfig config = Tetris.tetris.config;
-        if (config.ranking != null && config.rankingId == event.getEntity().getId()) {
-            Ranking.updateFloatingText();
-        }
-    }
-
-    @EventHandler
     public void onChunkLoad(ChunkLoadEvent event) {
         TetrisConfig config = Tetris.tetris.config;
         if (config.ranking != null) {
