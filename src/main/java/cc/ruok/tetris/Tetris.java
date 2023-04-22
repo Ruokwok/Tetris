@@ -21,8 +21,8 @@ public class Tetris extends PluginBase {
         configFile = new File(getDataFolder() + "/config.json");
         getDataFolder().mkdir();
         if (!configFile.exists()) {
-//            config = new TetrisConfig();
-//            config.save(configFile);
+            config = new TetrisConfig();
+            config.save(configFile);
         } else {
             config = TetrisConfig.load();
         }
