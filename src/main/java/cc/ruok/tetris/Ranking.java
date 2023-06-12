@@ -7,6 +7,7 @@ import cn.nukkit.entity.EntityLiving;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.scheduler.AsyncTask;
+import cn.nukkit.utils.ChunkException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -93,12 +94,17 @@ public class Ranking {
                 Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
                 if (text != null) text.kill();
                 Position position = new Position(config.ranking.x, config.ranking.y, config.ranking.z, level);
-                EntityLiving entity = new EntityLiving(level.getChunk(config.ranking.chunkX, config.ranking.chunkZ), Entity.getDefaultNBT(position)) {
-                    @Override
-                    public int getNetworkId() {
-                        return 81;
-                    }
-                };
+                EntityLiving entity;
+                try {
+                     entity = new EntityLiving(level.getChunk(config.ranking.chunkX, config.ranking.chunkZ), Entity.getDefaultNBT(position)) {
+                        @Override
+                        public int getNetworkId() {
+                            return 81;
+                        }
+                    };
+                } catch (ChunkException e) {
+                    return;
+                }
                 Map<String, String> map = sort();
                 config.rankingId = entity.getId();
                 config.save(Tetris.tetris.configFile);
