@@ -1,13 +1,10 @@
 package cc.ruok.tetris;
 
 import cn.nukkit.Player;
-import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityLiving;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
-import cn.nukkit.scheduler.AsyncTask;
-import cn.nukkit.utils.ChunkException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -85,41 +82,31 @@ public class Ranking {
     }
 
     public static void updateFloatingText() {
-        Server.getInstance().getScheduler().scheduleAsyncTask(Tetris.tetris, new AsyncTask() {
+        TetrisConfig config = TetrisGame.getConfig();
+        if (config.ranking == null) return;
+        Level level = TetrisGame.getLevel();
+        Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
+        if (text != null) text.kill();
+        Position position = new Position(config.ranking.x, config.ranking.y, config.ranking.z, level);
+        EntityLiving entity = new EntityLiving(level.getChunk(config.ranking.chunkX, config.ranking.chunkZ), Entity.getDefaultNBT(position)) {
             @Override
-            public void onRun() {
-                TetrisConfig config = TetrisGame.getConfig();
-                if (config.ranking == null) return;
-                Level level = TetrisGame.getLevel();
-                Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
-                if (text != null) text.kill();
-                Position position = new Position(config.ranking.x, config.ranking.y, config.ranking.z, level);
-                EntityLiving entity;
-                try {
-                     entity = new EntityLiving(level.getChunk(config.ranking.chunkX, config.ranking.chunkZ), Entity.getDefaultNBT(position)) {
-                        @Override
-                        public int getNetworkId() {
-                            return 81;
-                        }
-                    };
-                } catch (ChunkException e) {
-                    return;
-                }
-                Map<String, String> map = sort();
-                config.rankingId = entity.getId();
-                config.save(Tetris.tetris.configFile);
-                entity.setScale(0F);
-                int i = 0;
-                StringBuilder name = new StringBuilder("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]\n");
-                for (Map.Entry<String, String> entry : map.entrySet()) {
-                    name.append("§aNo.").append(++i).append(" §l§e").append(entry.getKey()).append(" §f- §b").append(entry.getValue()).append("\n");
-                }
-                name.append("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]");
-                entity.setNameTag(name.toString());
-                entity.setNameTagAlwaysVisible(true);
-                entity.spawnToAll();
+            public int getNetworkId() {
+                return 81;
             }
-        });
+        };
+        Map<String, String> map = sort();
+        config.rankingId = entity.getId();
+        config.save(Tetris.tetris.configFile);
+        entity.setScale(0F);
+        int i = 0;
+        StringBuilder name = new StringBuilder("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]\n");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            name.append("§aNo.").append(++i).append(" §l§e").append(entry.getKey()).append(" §f- §b").append(entry.getValue()).append("\n");
+        }
+        name.append("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]");
+        entity.setNameTag(name.toString());
+        entity.setNameTagAlwaysVisible(true);
+        entity.spawnToAll();
     }
 
     public static void removeFloatingText(Player player) {
