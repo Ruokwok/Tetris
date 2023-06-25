@@ -1,0 +1,49 @@
+gui.ok=知道了
+gui.cancel=关闭
+gui.speed=方块下落速度
+gui.sensitivity=方向键灵敏度
+gui.type=方块类型
+gui.particle=粒子效果
+
+gui.button.low=低
+gui.button.middle=中
+gui.button.high=高
+gui.button.wool=羊毛
+gui.button.concrete=混凝土
+gui.button.glass=染色玻璃
+gui.button.terracotta=陶瓦
+gui.button.break=方块破坏
+gui.button.explode=爆炸
+gui.button.big_explode=大爆炸
+gui.button.smoke=白色烟雾
+gui.button.nothing=无
+
+ranking.remove.tip=§l§a已移除排行榜.
+ranking.set.tip=§l§a已设置排行榜.
+ranking.title=§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]
+
+tetris.config.undefined=§c俄罗斯方块小游戏尚未进行配置，请联系管理员。
+tetris.config.save=§a成功保存设置!将在下一次游戏时生效.
+tetris.enable=俄罗斯方块小游戏已加载
+
+tetris.game.clear=§e消除:§l§d
+tetris.game.end=§e[§6俄罗斯方块§e]§c§l游戏结束
+tetris.game.finish=§l§a{player}§e完成了俄罗斯方块游戏，得分: §b{score}
+tetris.game.score=§e得分:§l§d
+tetris.game.start=§l§a开始!
+tetris.game.tips=§l§a方块: {index}  §c消除: {line}  §6得分: {score}
+
+tetris.setting=俄罗斯方块游戏设置
+tetris.setting.error=§c操作有误，重置步骤!请检查画布尺寸是否正确(高20,宽10)
+tetris.setting.finish=§e设置完成!详细配置请使用§b/tetris config§e修改
+tetris.setting.finish.tip=§e使用§b/tetris ranking set§e命令可设置排行榜浮空字
+tetris.setting.gaming=§c游戏正在进行中，请等待游戏结束后进行设置.
+tetris.setting.rim=已为您生成默认边框，边框可自行修改建造。
+tetris.setting.step.1=§e第1步: §a请建造一个 高20 宽10 的结构作为游戏画布
+tetris.setting.step.1.1="§e第1步:\n§a请建造一个 高20 宽10 的结构作为游戏画布\n§c*§b可使用任意方块\n§c*§b可位于x轴或z轴平面\n§f建造完成后请再次使用§a/tetris set§f命令进行下一步的设置"
+tetris.setting.step.2=§e第2步: §a请破坏最左上角的方块
+tetris.setting.step.3=§e第3步: §a请破坏最右下角的方块
+tetris.setting.step.4=§e第4步: §a请前往进行游戏的最佳位置，再次输入/tetris set
+tetris.setting.tip=请先使用/tetris set设置游戏画布.
+
+tetris.title=俄罗斯方块

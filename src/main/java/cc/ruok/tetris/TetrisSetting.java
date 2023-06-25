@@ -39,7 +39,7 @@ public class TetrisSetting {
     public void setting(Player player) {
         this.player = player;
         if (TetrisGame.getStats() != 0) {
-            player.sendMessage("§c游戏正在进行中，请等待游戏结束后进行设置.");
+            player.sendMessage(L.get("tetris.setting.gaming"));
             return;
         }
         switch (step) {
@@ -52,28 +52,23 @@ public class TetrisSetting {
     public void set1() {
         step = 1;
         listener = new SettingListener(player);
-        player.sendMessage("§e第1步: §a请建造一个 高20 宽10 的结构作为游戏画布");
+        player.sendMessage(L.get("tetris.setting.step.1"));
         Server.getInstance().getPluginManager().registerEvents(listener, Tetris.tetris);
-        FormWindowModal window = new FormWindowModal("俄罗斯方块",
-                "§e第1步:\n" +
-                        "§a请建造一个 高20 宽10 的结构作为游戏画布\n" +
-                        "§c*§b可使用任意方块\n" +
-                        "§c*§b可位于x轴或z轴平面\n" +
-                        "§f建造完成后请再次使用§a/tetris set§f命令进行下一步的设置", "知道了", "关闭");
+        FormWindowModal window = new FormWindowModal(L.get("tetris.title"), L.get("tetris.setting.step.1.1"), L.get("gui.ok"), L.get("gui.cancel"));
         player.showFormWindow(window);
     }
 
     public void set2() {
         step = 2;
         level = player.getLevel();
-        player.sendMessage("§e第2步: §a请破坏最左上角的方块");
+        player.sendMessage(L.get("tetris.setting.step.2"));
     }
 
     public void set3() {
         step = 0;
         position = player.getPosition();
-        player.sendMessage("§e设置完成!详细配置请使用§b/tetris config§e修改");
-        player.sendMessage("§e使用§b/tetris ranking set§e命令可设置排行榜浮空字");
+        player.sendMessage(L.get("tetris.setting.finish"));
+        player.sendMessage(L.get("tetris.setting.finish.tip"));
         TetrisConfig config = Tetris.tetris.config == null ? new TetrisConfig() : Tetris.tetris.config;
         config.level = level.getName();
         config.playX = position.getX();
@@ -133,41 +128,41 @@ public class TetrisSetting {
                 level.setBlock(pos, Block.get(236, color ? 4 : 15));
             }
         }
-        player.sendMessage("已为您生成默认边框，边框可自行修改建造。");
+        player.sendMessage(L.get("tetris.setting.rim"));
     }
 
     public static void config(Player player) {
         TetrisConfig config = Tetris.tetris.config;
         if (config == null) {
-            player.sendMessage("请先使用/tetris set设置游戏画布.");
+            player.sendMessage(L.get("tetris.setting.tip"));
             return;
         }
         ArrayList<String> keen = new ArrayList<>();
-        keen.add("低");
-        keen.add("中");
-        keen.add("高");
+        keen.add(L.get("gui.button.low"));
+        keen.add(L.get("gui.button.middle"));
+        keen.add(L.get("gui.button.high"));
         ArrayList<String> blocks = new ArrayList<>();
-        blocks.add("羊毛");
-        blocks.add("混凝土");
-        blocks.add("染色玻璃");
-        blocks.add("陶瓦");
+        blocks.add(L.get("gui.button.wool"));
+        blocks.add(L.get("gui.button.concrete"));
+        blocks.add(L.get("gui.button.glass"));
+        blocks.add(L.get("gui.button.terracotta"));
         ArrayList<String> speed = new ArrayList<>();
         speed.add("0.2x");
         speed.add("0.5x");
         speed.add("1.0x");
         speed.add("1.5x");
         ArrayList<String> effects = new ArrayList<>();
-        effects.add("方块破坏");
-        effects.add("爆炸");
-        effects.add("大爆炸");
-        effects.add("白色烟雾");
-        effects.add("无");
-        FormWindowCustom window = new FormWindowCustom("俄罗斯方块");
-        window.addElement(new ElementLabel("俄罗斯方块游戏设置"));
-        window.addElement(new ElementStepSlider("方块下落速度 ", speed, config.speed));
-        window.addElement(new ElementStepSlider("方向键灵敏度 ", keen, config.keen));
-        window.addElement(new ElementDropdown("方块类型", blocks, config.block));
-        window.addElement(new ElementDropdown("粒子效果", effects, config.effect < 0 ? 4 : config.effect));
+        effects.add(L.get("gui.button.break"));
+        effects.add(L.get("gui.button.explode"));
+        effects.add(L.get("gui.button.big_explode"));
+        effects.add(L.get("gui.button.smoke"));
+        effects.add(L.get("gui.button.nothing"));
+        FormWindowCustom window = new FormWindowCustom(L.get("tetris.title"));
+        window.addElement(new ElementLabel(L.get("tetris.setting")));
+        window.addElement(new ElementStepSlider(L.get("gui.speed") + " ", speed, config.speed));
+        window.addElement(new ElementStepSlider(L.get("gui.sensitivity") + " ", keen, config.keen));
+        window.addElement(new ElementDropdown(L.get("gui.type"), blocks, config.block));
+        window.addElement(new ElementDropdown(L.get("gui.particle"), effects, config.effect < 0 ? 4 : config.effect));
         window.addElement(new ElementToggle("BGM", config.bgm));
         player.showFormWindow(window, 1145142233);
     }

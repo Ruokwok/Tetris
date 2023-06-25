@@ -1,5 +1,6 @@
 package cc.ruok.tetris.tasks;
 
+import cc.ruok.tetris.L;
 import cc.ruok.tetris.Tetris;
 import cc.ruok.tetris.TetrisGame;
 import cn.nukkit.Server;
@@ -14,7 +15,7 @@ public class ReadyTask extends Task {
     public void onRun(int _i) {
         TetrisGame game = TetrisGame.getGame();
         if (i == 0) {
-            game.getPlayer().sendTitle("§l§a开始!");
+            game.getPlayer().sendTitle(L.get("tetris.game.start"));
             if (TetrisGame.getConfig().bgm) TetrisGame.getLevel().addSound(game.getPlayer(), Sound.NOTE_HARP, 1, 1.498307F);
             game.spawn();
             game.setStats(2);

@@ -99,11 +99,11 @@ public class Ranking {
         config.save(Tetris.tetris.configFile);
         entity.setScale(0F);
         int i = 0;
-        StringBuilder name = new StringBuilder("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]\n");
+        StringBuilder name = new StringBuilder(L.get("ranking.title") + "\n");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             name.append("§aNo.").append(++i).append(" §l§e").append(entry.getKey()).append(" §f- §b").append(entry.getValue()).append("\n");
         }
-        name.append("§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]");
+        name.append(L.get("ranking.title"));
         entity.setNameTag(name.toString());
         entity.setNameTagAlwaysVisible(true);
         entity.spawnToAll();
@@ -114,7 +114,7 @@ public class Ranking {
         Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
         if (text != null) {
             text.kill();
-            player.sendMessage("§l§a已移除排行榜.");
+            player.sendMessage(L.get("ranking.remove.tip"));
         }
     }
 
@@ -127,7 +127,7 @@ public class Ranking {
         seat.chunkZ = player.getChunkZ();
         TetrisGame.getConfig().ranking = seat;
         updateFloatingText();
-        player.sendMessage("§l§a已设置排行榜.");
+        player.sendMessage(L.get("ranking.set.tip"));
     }
 
 }

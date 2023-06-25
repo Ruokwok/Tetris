@@ -26,6 +26,7 @@ public class Tetris extends PluginBase {
         } else {
             config = TetrisConfig.load();
         }
+        L.load(config.language);
         Ranking.load();
     }
 
@@ -36,10 +37,10 @@ public class Tetris extends PluginBase {
         Ranking.updateFloatingText();
         server.getCommandMap().register("tetris", new TetrisCommand());
         server.getPluginManager().registerEvents(new BaseListener(), this);
-        getLogger().info("俄罗斯方块小游戏已加载 - v" + getDescription().getVersion());
-        if (config == null) {
-            getLogger().warning("§c俄罗斯方块未进行设置，请在游戏中使用/tetris set命苦开始配置.");
-        }
+        getLogger().info(L.get("tetris.enable") + " - v" + getDescription().getVersion());
+//        if (config == null) {
+//            getLogger().warning("§c俄罗斯方块未进行设置，请在游戏中使用/tetris set命令开始配置.");
+//        }
     }
 
     @Override

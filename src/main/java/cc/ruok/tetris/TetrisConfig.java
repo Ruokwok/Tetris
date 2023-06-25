@@ -24,6 +24,7 @@ public class TetrisConfig {
     public boolean bgm = true;
     public Seat ranking;
     public long rankingId;
+    public String language = "auto";
 
 
     public void save(File file) {

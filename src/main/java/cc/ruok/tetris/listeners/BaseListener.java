@@ -1,11 +1,11 @@
 package cc.ruok.tetris.listeners;
 
+import cc.ruok.tetris.L;
 import cc.ruok.tetris.Ranking;
 import cc.ruok.tetris.Tetris;
 import cc.ruok.tetris.TetrisConfig;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
-import cn.nukkit.event.entity.EntityDespawnEvent;
 import cn.nukkit.event.level.ChunkLoadEvent;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.response.FormResponseCustom;
@@ -27,27 +27,39 @@ public class BaseListener implements Listener {
                 case "0.5x": config.speed = 1; break;
                 case "0.2x": config.speed = 0; break;
             }
-            switch (String.valueOf(map.get(2))) {
-                case "高": config.keen = 2; break;
-                case "中": config.keen = 1; break;
-                case "低": config.keen = 0; break;
+            String s = String.valueOf(map.get(2));
+            if (s.equals(L.get("gui.button.high"))) {
+                config.keen = 2;
+            } else if (s.equals(L.get("gui.button.middle"))) {
+                config.keen = 1;
+            } else if (s.equals(L.get("gui.button.low"))) {
+                config.keen = 0;
             }
-            switch (String.valueOf(map.get(3))) {
-                case "羊毛": config.block = 0; break;
-                case "混凝土": config.block = 1; break;
-                case "染色玻璃": config.block = 2; break;
-                case "陶瓦": config.block = 3; break;
+            String valueOf = String.valueOf(map.get(3));
+            if (valueOf.equals(L.get("gui.button.wool"))) {
+                config.block = 0;
+            } else if (valueOf.equals(L.get("gui.button.concrete"))) {
+                config.block = 1;
+            } else if (valueOf.equals(L.get("gui.button.glass"))) {
+                config.block = 2;
+            } else if (valueOf.equals(L.get("gui.button.terracotta"))) {
+                config.block = 3;
             }
-            switch (String.valueOf(map.get(4))) {
-                case "方块破坏": config.effect = 0; break;
-                case "爆炸": config.effect = 1; break;
-                case "大爆炸": config.effect = 2; break;
-                case "白色烟雾": config.effect = 3; break;
-                case "无": config.effect = -1; break;
+            String of = String.valueOf(map.get(4));
+            if (of.equals(L.get("gui.button.break"))) {
+                config.effect = 0;
+            } else if (of.equals(L.get("gui.button.explode"))) {
+                config.effect = 1;
+            } else if (of.equals(L.get("gui.button.big_explode"))) {
+                config.effect = 2;
+            } else if (of.equals(L.get("gui.button.smoke"))) {
+                config.effect = 3;
+            } else if (of.equals(L.get("gui.button.nothing"))) {
+                config.effect = -1;
             }
             config.bgm = (boolean) map.get(5);
             config.save(Tetris.tetris.configFile);
-            event.getPlayer().sendMessage("§a成功保存设置!将在下一次游戏时生效.");
+            event.getPlayer().sendMessage(L.get("tetris.config.save"));
         }
     }
 
