@@ -120,7 +120,7 @@ public class TetrisGame {
 
     public static TetrisGame start(Player player) {
         if (stats != 0) return null;
-        if (Tetris.tetris.config == null) {
+        if (!Tetris.tetris.config.layout) {
             player.sendMessage(L.get("tetris.config.undefined"));
             return null;
         }

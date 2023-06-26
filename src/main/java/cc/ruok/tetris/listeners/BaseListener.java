@@ -21,6 +21,7 @@ public class BaseListener implements Listener {
             if (response == null) return;
             HashMap<Integer, Object> map = response.getResponses();
             TetrisConfig config = Tetris.tetris.config;
+            String lang = config.language;
             switch (String.valueOf(map.get(1))) {
                 case "1.5x": config.speed = 3; break;
                 case "1.0x": config.speed = 2; break;
@@ -58,6 +59,15 @@ public class BaseListener implements Listener {
                 config.effect = -1;
             }
             config.bgm = (boolean) map.get(5);
+            if (String.valueOf(map.get(6)).equals(L.get("tetris.setting.language.auto"))) config.language = "auto";
+            switch (String.valueOf(map.get(6))) {
+                case "简体中文": config.language = "chs"; break;
+                case "English": config.language = "eng"; break;
+            }
+            if (!config.language.equals(lang)) {
+                L.load(config.language);
+                Ranking.updateFloatingText();
+            }
             config.save(Tetris.tetris.configFile);
             event.getPlayer().sendMessage(L.get("tetris.config.save"));
         }

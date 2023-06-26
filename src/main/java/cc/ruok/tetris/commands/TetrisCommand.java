@@ -1,5 +1,6 @@
 package cc.ruok.tetris.commands;
 
+import cc.ruok.tetris.L;
 import cc.ruok.tetris.Ranking;
 import cc.ruok.tetris.TetrisGame;
 import cc.ruok.tetris.TetrisSetting;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class TetrisCommand extends Command {
 
     public TetrisCommand() {
-        super("tetris", "俄罗斯方块");
+        super("tetris", L.get("tetris.title"));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class TetrisCommand extends Command {
                             new Thread(() -> TetrisGame.start(player)).start();
                             return true;
                         } else {
-                            commandSender.sendMessage("§c游戏正在进行");
+                            commandSender.sendMessage(L.get("command.in_game"));
                             return false;
                         }
                     case "ranking":
@@ -49,7 +50,7 @@ public class TetrisCommand extends Command {
                         } else if (args.length == 2 && args[1].equals("remove") && player.isOp()) {
                             Ranking.removeFloatingText(player); return true;
                         }
-                        player.sendMessage("§l§e==== §6俄罗斯方块 §f- §c排行榜 §e====");
+                        player.sendMessage(L.get("command.ranking"));
                         int i = 0;
                         Map<String, String> map = Ranking.sort();
                         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -57,27 +58,27 @@ public class TetrisCommand extends Command {
                         }
                         break;
                     case "help":
-                        player.sendMessage("§e[§6俄罗斯方块§e] §b帮助");
-                        player.sendMessage("§c方向键 - §b§e§l左右移动");
-                        player.sendMessage("§c前进/跳跃 - §b§e§l旋转");
-                        player.sendMessage("§c后退 - §b§e§l下落");
-                        player.sendMessage("§a/tetris play §f- §b§l开始游戏");
-                        player.sendMessage("§a/tetris ranking §f- §b§l查看排行榜");
+                        player.sendMessage(L.get("command.help.title"));
+                        player.sendMessage(L.get("command.help.move"));
+                        player.sendMessage(L.get("command.help.rotate"));
+                        player.sendMessage(L.get("command.help.fall"));
+                        player.sendMessage(L.get("command.help.start"));
+                        player.sendMessage("§a/tetris ranking §f- " + L.get("command.help.ranking"));
                         if (player.isOp()) {
-                            player.sendMessage("§a/tetris ranking set §f- §b§l设置排行榜位置");
-                            player.sendMessage("§a/tetris ranking remove §f- §b§l移除排行榜");
-                            player.sendMessage("§a/tetris set §f- §b§l俄罗斯方块画布设置");
-                            player.sendMessage("§a/tetris config §f- §b§l俄罗斯方块详细设置");
+                            player.sendMessage("§a/tetris ranking set §f- " + L.get("command.help.ranking.set"));
+                            player.sendMessage("§a/tetris ranking remove §f- " + L.get("command.help.ranking.remove"));
+                            player.sendMessage("§a/tetris set §f- " + L.get("command.help.set"));
+                            player.sendMessage("§a/tetris config §f- " + L.get("command.help.config"));
                         }
 
                 }
 
             } else {
-                player.sendMessage("§e[§6俄罗斯方块§e] §h查看帮助§f:");
+                player.sendMessage(L.get("command.help"));
                 player.sendMessage("§a/tetris §bhelp");
             }
         } else {
-            commandSender.sendMessage("§c该指令不能以控制台执行!");
+            commandSender.sendMessage(L.get("command.console.warning"));
         }
         return false;
     }

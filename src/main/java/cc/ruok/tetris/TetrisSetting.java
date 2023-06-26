@@ -54,7 +54,13 @@ public class TetrisSetting {
         listener = new SettingListener(player);
         player.sendMessage(L.get("tetris.setting.step.1"));
         Server.getInstance().getPluginManager().registerEvents(listener, Tetris.tetris);
-        FormWindowModal window = new FormWindowModal(L.get("tetris.title"), L.get("tetris.setting.step.1.1"), L.get("gui.ok"), L.get("gui.cancel"));
+        FormWindowModal window = new FormWindowModal(L.get("tetris.title"),
+                L.get("tetris.setting.step.1.tip.1") + "\n" +
+                L.get("tetris.setting.step.1.tip.2") + "\n" +
+                L.get("tetris.setting.step.1.tip.3") + "\n" +
+                L.get("tetris.setting.step.1.tip.4") + "\n" +
+                L.get("tetris.setting.step.1.tip.5") + "\n"
+                , L.get("gui.ok"), L.get("gui.cancel"));
         player.showFormWindow(window);
     }
 
@@ -70,6 +76,7 @@ public class TetrisSetting {
         player.sendMessage(L.get("tetris.setting.finish"));
         player.sendMessage(L.get("tetris.setting.finish.tip"));
         TetrisConfig config = Tetris.tetris.config == null ? new TetrisConfig() : Tetris.tetris.config;
+        config.layout = true;
         config.level = level.getName();
         config.playX = position.getX();
         config.playZ = position.getZ();
@@ -157,13 +164,18 @@ public class TetrisSetting {
         effects.add(L.get("gui.button.big_explode"));
         effects.add(L.get("gui.button.smoke"));
         effects.add(L.get("gui.button.nothing"));
+        ArrayList<String> lang = new ArrayList<>();
+        lang.add(L.get("tetris.setting.language.auto"));
+        lang.add("简体中文");
+        lang.add("English");
         FormWindowCustom window = new FormWindowCustom(L.get("tetris.title"));
         window.addElement(new ElementLabel(L.get("tetris.setting")));
-        window.addElement(new ElementStepSlider(L.get("gui.speed") + " ", speed, config.speed));
-        window.addElement(new ElementStepSlider(L.get("gui.sensitivity") + " ", keen, config.keen));
+        window.addElement(new ElementStepSlider(L.get("gui.speed"), speed, config.speed));
+        window.addElement(new ElementStepSlider(L.get("gui.sensitivity"), keen, config.keen));
         window.addElement(new ElementDropdown(L.get("gui.type"), blocks, config.block));
         window.addElement(new ElementDropdown(L.get("gui.particle"), effects, config.effect < 0 ? 4 : config.effect));
         window.addElement(new ElementToggle("BGM", config.bgm));
+        window.addElement(new ElementDropdown(L.get("tetris.setting.language"), lang, config.getLangIndex()));
         player.showFormWindow(window, 1145142233);
     }
 

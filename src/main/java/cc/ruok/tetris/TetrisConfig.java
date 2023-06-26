@@ -25,6 +25,7 @@ public class TetrisConfig {
     public Seat ranking;
     public long rankingId;
     public String language = "auto";
+    public boolean layout = false;
 
 
     public void save(File file) {
@@ -48,6 +49,12 @@ public class TetrisConfig {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int getLangIndex() {
+        if (language.equals("chs")) return 1;
+        if (language.equals("eng")) return 2;
+        return 0;
     }
 
     public static class Seat {

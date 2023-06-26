@@ -1,3 +1,18 @@
+command.console.warning=§c该指令不能以控制台执行!
+command.help=§e[§6俄罗斯方块§e] §h查看帮助§f:
+command.help.config=§b§l俄罗斯方块详细设置
+command.help.fall=§c后退 - §b§e§l下落
+command.help.move=§c方向键 - §b§e§l左右移动
+command.help.ranking=§b§l查看排行榜
+command.help.ranking.remove=§b§l移除排行榜
+command.help.ranking.set=§b§l设置排行榜位置
+command.help.rotate=§c前进/跳跃 - §b§e§l旋转
+command.help.set=§b§l俄罗斯方块画布设置
+command.help.start=§a/tetris play §f- §b§l开始游戏
+command.help.title=§e[§6俄罗斯方块§e] §b帮助
+command.in_game=§c游戏正在进行
+command.ranking=§l§e==== §6俄罗斯方块 §f- §c排行榜 §e====
+
 gui.ok=知道了
 gui.cancel=关闭
 gui.speed=方块下落速度
@@ -38,9 +53,15 @@ tetris.setting.error=§c操作有误，重置步骤!请检查画布尺寸是否�
 tetris.setting.finish=§e设置完成!详细配置请使用§b/tetris config§e修改
 tetris.setting.finish.tip=§e使用§b/tetris ranking set§e命令可设置排行榜浮空字
 tetris.setting.gaming=§c游戏正在进行中，请等待游戏结束后进行设置.
+tetris.setting.language=语言
+tetris.setting.language.auto=自动
 tetris.setting.rim=已为您生成默认边框，边框可自行修改建造。
 tetris.setting.step.1=§e第1步: §a请建造一个 高20 宽10 的结构作为游戏画布
-tetris.setting.step.1.1="§e第1步:\n§a请建造一个 高20 宽10 的结构作为游戏画布\n§c*§b可使用任意方块\n§c*§b可位于x轴或z轴平面\n§f建造完成后请再次使用§a/tetris set§f命令进行下一步的设置"
+tetris.setting.step.1.tip.1=§e第1步:
+tetris.setting.step.1.tip.2=§a请建造一个 高20 宽10 的结构作为游戏画布
+tetris.setting.step.1.tip.3=§c*§b可使用任意方块
+tetris.setting.step.1.tip.4=§c*§b可位于x轴或z轴平面
+tetris.setting.step.1.tip.5=§f建造完成后请再次使用§a/tetris set§f命令进行下一步的设置
 tetris.setting.step.2=§e第2步: §a请破坏最左上角的方块
 tetris.setting.step.3=§e第3步: §a请破坏最右下角的方块
 tetris.setting.step.4=§e第4步: §a请前往进行游戏的最佳位置，再次输入/tetris set
