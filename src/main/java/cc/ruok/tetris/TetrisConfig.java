@@ -40,10 +40,14 @@ public class TetrisConfig {
 
     public static TetrisConfig load() {
         try {
-            TetrisConfig config = new Gson().fromJson(Utils.readFile(Tetris.tetris.configFile), TetrisConfig.class);
+            String json = Utils.readFile(Tetris.tetris.configFile);
+            TetrisConfig config = new Gson().fromJson(json, TetrisConfig.class);
             if (config.direction < 0 || config.direction > 3) {
                 Tetris.tetris.getLogger().error("§c读取配置文件出错，请检查direction项!");
                 return null;
+            }
+            if (!json.contains("\"layout\":") && config.originX != 0 && config.originY != 0 && config.originZ != 0) {
+                config.layout = true;
             }
             return config;
         } catch (IOException e) {
