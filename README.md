@@ -2,8 +2,10 @@
 在Nukkit上实现经典游戏俄罗斯方块
 
 ## 下载
-- MineBBS [最新版本](https://www.minebbs.com/resources/tetris.5633/download)
-- MineBBS [历史版本](https://www.minebbs.com/resources/tetris.5633/history)
+- [MineBBS 最新版本](https://www.minebbs.com/resources/tetris.5633/download)
+- [MineBBS 历史版本](https://www.minebbs.com/resources/tetris.5633/history)
+- [Cloudburst Resources](https://www.cloudburstmc.org/resources/tetris.927/)
+- [StarElement CI](http://ci.starelement.net/job/Nukkit%20Plugin/job/Tetris/)
 
 ## 使用
 - 使用/tetris set开始设置，按照提示逐步操作设置游戏画布(10*20)、游戏位置等。
