@@ -89,29 +89,14 @@ public class Ranking {
     public static void updateFloatingText() {
         TetrisConfig config = TetrisGame.getConfig();
         if (config.ranking == null) return;
-        Level level = TetrisGame.getLevel();
-//        Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
-//        if (text != null) text.kill();
-        Position position = new Position(config.ranking.x, config.ranking.y, config.ranking.z, level);
-//        EntityLiving entity = new EntityLiving(level.getChunk(config.ranking.chunkX, config.ranking.chunkZ), Entity.getDefaultNBT(position)) {
-//            @Override
-//            public int getNetworkId() {
-//                return 81;
-//            }
-//        };
+        removeFloatingText();
         Map<String, String> map = sort();
-//        config.rankingId = entity.getId();
-//        config.save(Tetris.tetris.configFile);
-//        entity.setScale(0F);
         int i = 0;
         StringBuilder name = new StringBuilder(L.get("ranking.title") + "\n");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             name.append("§aNo.").append(++i).append(" §l§e").append(entry.getKey()).append(" §f- §b").append(entry.getValue()).append("\n");
         }
         name.append(L.get("ranking.title"));
-//        entity.setNameTag(name.toString());
-//        entity.setNameTagAlwaysVisible(true);
-//        entity.spawnToAll();
 
         packet = new AddEntityPacket();
         int id = new NukkitRandom().nextInt();
@@ -124,9 +109,9 @@ public class Ranking {
         packet.speedX = 0;
         packet.speedY = 0;
         packet.speedZ = 0;
-        packet.x = (float) position.x;
-        packet.y = (float) position.y;
-        packet.z = (float) position.z;
+        packet.x = (float) config.ranking.x;
+        packet.y = (float) config.ranking.y;
+        packet.z = (float) config.ranking.z;
         packet.metadata = new EntityMetadata()
                 .putString(Entity.DATA_NAMETAG, name.toString())
                 .putBoolean(Entity.DATA_ALWAYS_SHOW_NAMETAG, true);
@@ -144,18 +129,16 @@ public class Ranking {
     }
 
     public static void removeFloatingText(Player player) {
-//        Level level = TetrisGame.getLevel();
-//        Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
-//        if (text != null) {
-//            text.kill();
-//            player.sendMessage(L.get("ranking.remove.tip"));
-//        }
+        removeFloatingText();
+        player.sendMessage(L.get("ranking.remove.tip"));
+    }
+
+    public static void removeFloatingText() {
         RemoveEntityPacket pk = new RemoveEntityPacket();
         pk.eid = Tetris.tetris.config.rankingId;
         for (Player pl : Server.getInstance().getOnlinePlayers().values()) {
             pl.dataPacket(pk);
         }
-        player.sendMessage(L.get("ranking.remove.tip"));
     }
 
     public static void setFloatingText(Player player) {
