@@ -4,10 +4,13 @@ import cc.ruok.tetris.L;
 import cc.ruok.tetris.Ranking;
 import cc.ruok.tetris.Tetris;
 import cc.ruok.tetris.TetrisConfig;
+import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.level.ChunkLoadEvent;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
+import cn.nukkit.event.player.PlayerJoinEvent;
+import cn.nukkit.event.player.PlayerTeleportEvent;
 import cn.nukkit.form.response.FormResponseCustom;
 
 import java.util.HashMap;
@@ -74,13 +77,14 @@ public class BaseListener implements Listener {
     }
 
     @EventHandler
-    public void onChunkLoad(ChunkLoadEvent event) {
-        TetrisConfig config = Tetris.tetris.config;
-        if (config.ranking != null) {
-            if (event.getChunk().getX() == config.ranking.chunkX && event.getChunk().getZ() == config.ranking.chunkZ) {
-                Ranking.updateFloatingText();
-            }
-        }
+    public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        Ranking.updateFloatingText(player);
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent event) {
+
     }
 
 }

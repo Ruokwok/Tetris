@@ -1,10 +1,14 @@
 package cc.ruok.tetris;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
-import cn.nukkit.entity.EntityLiving;
+import cn.nukkit.entity.data.EntityMetadata;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
+import cn.nukkit.math.NukkitRandom;
+import cn.nukkit.network.protocol.AddEntityPacket;
+import cn.nukkit.network.protocol.RemoveEntityPacket;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +19,7 @@ public class Ranking {
 
     private static final File FILE = new File(Tetris.tetris.getDataFolder(), "ranking.properties");
     private static HashMap<String, String> ranking;
+    private static AddEntityPacket packet;
 
 
     public static boolean put(String player, int score) {
@@ -85,37 +90,72 @@ public class Ranking {
         TetrisConfig config = TetrisGame.getConfig();
         if (config.ranking == null) return;
         Level level = TetrisGame.getLevel();
-        Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
-        if (text != null) text.kill();
+//        Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
+//        if (text != null) text.kill();
         Position position = new Position(config.ranking.x, config.ranking.y, config.ranking.z, level);
-        EntityLiving entity = new EntityLiving(level.getChunk(config.ranking.chunkX, config.ranking.chunkZ), Entity.getDefaultNBT(position)) {
-            @Override
-            public int getNetworkId() {
-                return 81;
-            }
-        };
+//        EntityLiving entity = new EntityLiving(level.getChunk(config.ranking.chunkX, config.ranking.chunkZ), Entity.getDefaultNBT(position)) {
+//            @Override
+//            public int getNetworkId() {
+//                return 81;
+//            }
+//        };
         Map<String, String> map = sort();
-        config.rankingId = entity.getId();
-        config.save(Tetris.tetris.configFile);
-        entity.setScale(0F);
+//        config.rankingId = entity.getId();
+//        config.save(Tetris.tetris.configFile);
+//        entity.setScale(0F);
         int i = 0;
         StringBuilder name = new StringBuilder(L.get("ranking.title") + "\n");
         for (Map.Entry<String, String> entry : map.entrySet()) {
             name.append("§aNo.").append(++i).append(" §l§e").append(entry.getKey()).append(" §f- §b").append(entry.getValue()).append("\n");
         }
         name.append(L.get("ranking.title"));
-        entity.setNameTag(name.toString());
-        entity.setNameTagAlwaysVisible(true);
-        entity.spawnToAll();
+//        entity.setNameTag(name.toString());
+//        entity.setNameTagAlwaysVisible(true);
+//        entity.spawnToAll();
+
+        packet = new AddEntityPacket();
+        int id = new NukkitRandom().nextInt();
+        packet.entityRuntimeId = id;
+        packet.entityUniqueId = id;
+        packet.type = 64;
+        packet.yaw = 0;
+        packet.headYaw = 0;
+        packet.pitch = 0;
+        packet.speedX = 0;
+        packet.speedY = 0;
+        packet.speedZ = 0;
+        packet.x = (float) position.x;
+        packet.y = (float) position.y;
+        packet.z = (float) position.z;
+        packet.metadata = new EntityMetadata()
+                .putString(Entity.DATA_NAMETAG, name.toString())
+                .putBoolean(Entity.DATA_ALWAYS_SHOW_NAMETAG, true);
+        config.rankingId = id;
+        config.save(Tetris.tetris.configFile);
+        for (Player player : Server.getInstance().getOnlinePlayers().values()) {
+            player.dataPacket(packet);
+        }
+    }
+
+    public static void updateFloatingText(Player player) {
+        if (packet != null) {
+            player.dataPacket(packet);
+        }
     }
 
     public static void removeFloatingText(Player player) {
-        Level level = TetrisGame.getLevel();
-        Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
-        if (text != null) {
-            text.kill();
-            player.sendMessage(L.get("ranking.remove.tip"));
+//        Level level = TetrisGame.getLevel();
+//        Entity text = level.getEntity(TetrisGame.getConfig().rankingId);
+//        if (text != null) {
+//            text.kill();
+//            player.sendMessage(L.get("ranking.remove.tip"));
+//        }
+        RemoveEntityPacket pk = new RemoveEntityPacket();
+        pk.eid = Tetris.tetris.config.rankingId;
+        for (Player pl : Server.getInstance().getOnlinePlayers().values()) {
+            pl.dataPacket(pk);
         }
+        player.sendMessage(L.get("ranking.remove.tip"));
     }
 
     public static void setFloatingText(Player player) {
