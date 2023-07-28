@@ -70,7 +70,10 @@ public class TetrisCommand extends Command {
                             player.sendMessage("§a/tetris set §f- " + L.get("command.help.set"));
                             player.sendMessage("§a/tetris config §f- " + L.get("command.help.config"));
                         }
-
+                        break;
+                    default:
+                        player.sendMessage(L.get("command.help"));
+                        player.sendMessage("§a/tetris §bhelp");
                 }
 
             } else {
