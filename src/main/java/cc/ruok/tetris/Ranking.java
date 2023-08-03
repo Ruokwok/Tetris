@@ -148,6 +148,10 @@ public class Ranking {
     }
 
     public static void setFloatingText(Player player) {
+        if (!Tetris.tetris.config.level.equals(player.getLevel().getName())) {
+            player.sendMessage(L.get("ranking.set.error"));
+            return;
+        }
         TetrisConfig.Seat seat = new TetrisConfig.Seat();
         seat.x = player.getX();
         seat.y = player.getY() + 2;

@@ -39,6 +39,7 @@ ranking.title=§e[[ §6Tetris §c-- §dRanking §e]]
 
 tetris.config.undefined=§cThe tetris game is not configured.Place contact the OP.
 tetris.config.save=§aSuccess!Will take effect in the next game.
+ranking.set.error=§l§cThe ranking can only be set in the level of Tetris games.
 tetris.enable=Tetris plugin is loaded
 
 tetris.game.clear=§eElimination:§l§d

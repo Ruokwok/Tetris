@@ -35,6 +35,7 @@ gui.button.nothing=无
 
 ranking.remove.tip=§l§a已移除排行榜.
 ranking.set.tip=§l§a已设置排行榜.
+ranking.set.error=§l§c失败！排行榜必须与俄罗斯方块游戏处于同一世界中.
 ranking.title=§e[[ §6俄罗斯方块 §c-- §d排行榜 §e]]
 
 tetris.config.undefined=§c俄罗斯方块小游戏尚未进行配置，请联系管理员。
