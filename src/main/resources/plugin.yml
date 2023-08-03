@@ -2,5 +2,5 @@ name: Tetris
 main: cc.ruok.tetris.Tetris
 load: POSTWORLD
 api: 1.0.0
-version: 1.9
+version: 1.10
 author: Ruok
