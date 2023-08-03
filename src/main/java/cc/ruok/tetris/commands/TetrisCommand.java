@@ -48,7 +48,7 @@ public class TetrisCommand extends Command {
                         if (args.length == 2 && args[1].equals("set") && player.isOp()) {
                             Ranking.setFloatingText(player); return true;
                         } else if (args.length == 2 && args[1].equals("remove") && player.isOp()) {
-                            Ranking.removeFloatingText(player); return true;
+                            Ranking.deleteFloatingText(player); return true;
                         }
                         player.sendMessage(L.get("command.ranking"));
                         int i = 0;

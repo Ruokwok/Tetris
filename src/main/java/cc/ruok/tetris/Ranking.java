@@ -142,6 +142,8 @@ public class Ranking {
 
     public static void deleteFloatingText(Player player) {
         removeFloatingText();
+        Tetris.tetris.config.ranking = null;
+        Tetris.tetris.config.save(Tetris.tetris.configFile);
         player.sendMessage(L.get("ranking.remove.tip"));
     }
 
