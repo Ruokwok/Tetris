@@ -129,16 +129,20 @@ public class Ranking {
     }
 
     public static void removeFloatingText(Player player) {
-        removeFloatingText();
-        player.sendMessage(L.get("ranking.remove.tip"));
+        RemoveEntityPacket pk = new RemoveEntityPacket();
+        pk.eid = Tetris.tetris.config.rankingId;
+        player.dataPacket(pk);
     }
 
     public static void removeFloatingText() {
-        RemoveEntityPacket pk = new RemoveEntityPacket();
-        pk.eid = Tetris.tetris.config.rankingId;
-        for (Player pl : Server.getInstance().getOnlinePlayers().values()) {
-            pl.dataPacket(pk);
+        for (Player player : Server.getInstance().getOnlinePlayers().values()) {
+            removeFloatingText(player);
         }
+    }
+
+    public static void deleteFloatingText(Player player) {
+        removeFloatingText();
+        player.sendMessage(L.get("ranking.remove.tip"));
     }
 
     public static void setFloatingText(Player player) {

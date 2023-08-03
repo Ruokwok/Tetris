@@ -78,12 +78,19 @@ public class BaseListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Ranking.updateFloatingText(player);
+        if (Tetris.tetris.config.level.equals(player.getLevel().getName())) {
+            Ranking.updateFloatingText(player);
+        }
     }
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent event) {
-
+        Player player = event.getPlayer();
+        if (Tetris.tetris.config.level.equals(event.getTo().getLevel().getName())) {
+            Ranking.updateFloatingText(player);
+        } else {
+            Ranking.removeFloatingText(player);
+        }
     }
 
 }
