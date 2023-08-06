@@ -26,6 +26,7 @@ public class TetrisConfig {
     public long rankingId;
     public String language = "auto";
     public boolean layout = false;
+    public int ranking_length = 10;
 
 
     public void save(File file) {

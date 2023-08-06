@@ -4,8 +4,6 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.data.EntityMetadata;
-import cn.nukkit.level.Level;
-import cn.nukkit.level.Position;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.network.protocol.AddEntityPacket;
 import cn.nukkit.network.protocol.RemoveEntityPacket;
@@ -79,7 +77,7 @@ public class Ranking {
         Collections.sort(list,valCmp);
         //输出map
         LinkedHashMap<String, String> result = new LinkedHashMap<>();
-        int sum = Math.min(list.size(), 10);
+        int sum = Math.min(list.size(), Tetris.tetris.config.ranking_length);
         for(int i = 0; i < sum; i++) {
             result.put(list.get(i).getKey(), list.get(i).getValue());
         }
