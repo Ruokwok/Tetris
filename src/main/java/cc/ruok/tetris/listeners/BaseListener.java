@@ -11,6 +11,7 @@ import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.event.player.PlayerTeleportEvent;
 import cn.nukkit.form.response.FormResponseCustom;
+import cn.nukkit.form.window.FormWindowModal;
 
 import java.util.HashMap;
 
@@ -24,6 +25,15 @@ public class BaseListener implements Listener {
             HashMap<Integer, Object> map = response.getResponses();
             TetrisConfig config = Tetris.tetris.config;
             String lang = config.language;
+            try {
+                int i = Integer.parseInt((String) map.get(6));
+                if (i <= 0) throw new Exception();
+                Tetris.tetris.config.ranking_length = i;
+            } catch (Exception e) {
+                FormWindowModal window = new FormWindowModal(L.get("tetris.title"), L.get("gui.input.error"), L.get("gui.ok"), L.get("gui.cancel"));
+                event.getPlayer().showFormWindow(window);
+                return;
+            }
             switch (String.valueOf(map.get(1))) {
                 case "1.5x": config.speed = 3; break;
                 case "1.0x": config.speed = 2; break;
@@ -61,15 +71,15 @@ public class BaseListener implements Listener {
                 config.effect = -1;
             }
             config.bgm = (boolean) map.get(5);
-            if (String.valueOf(map.get(6)).equals(L.get("tetris.setting.language.auto"))) config.language = "auto";
-            switch (String.valueOf(map.get(6))) {
+            if (String.valueOf(map.get(7)).equals(L.get("tetris.setting.language.auto"))) config.language = "auto";
+            switch (String.valueOf(map.get(7))) {
                 case "简体中文": config.language = "chs"; break;
                 case "English": config.language = "eng"; break;
             }
             if (!config.language.equals(lang)) {
                 L.load(config.language);
-                Ranking.updateFloatingText();
             }
+            Ranking.updateFloatingText();
             config.save(Tetris.tetris.configFile);
             event.getPlayer().sendMessage(L.get("tetris.config.save"));
         }

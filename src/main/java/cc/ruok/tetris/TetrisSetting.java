@@ -175,6 +175,7 @@ public class TetrisSetting {
         window.addElement(new ElementDropdown(L.get("gui.type"), blocks, config.block));
         window.addElement(new ElementDropdown(L.get("gui.particle"), effects, config.effect < 0 ? 4 : config.effect));
         window.addElement(new ElementToggle("BGM", config.bgm));
+        window.addElement(new ElementInput(L.get("gui.ranking"), "", String.valueOf(Tetris.tetris.config.ranking_length)));
         window.addElement(new ElementDropdown(L.get("tetris.setting.language"), lang, config.getLangIndex()));
         player.showFormWindow(window, 1145142233);
     }
