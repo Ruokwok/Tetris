@@ -16,6 +16,7 @@ public class UpdateRankingTask extends Task {
             Collection<Player> players = Server.getInstance().getOnlinePlayers().values();
             for (Player player : players) {
                 if (Tetris.tetris.config.level.equals(player.getLevel().getName())) {
+                    Ranking.removeFloatingText(player);
                     Ranking.updateFloatingText(player);
                 }
             }
